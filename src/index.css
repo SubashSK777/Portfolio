@@ -379,3 +379,103 @@ p.body-text {
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
   transform: translate(-50%, -50%) scale(1.1);
 }
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 1024px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .page-transition {
+    flex-direction: column;
+  }
+
+  /* Make sure the image section sits at the top and scales safely */
+  .media-section {
+    width: 100vw;
+    height: 40vh;
+    flex-shrink: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* The content section takes up the remaining view height */
+  .content-section {
+    width: 100vw;
+    height: 60vh;
+    flex-shrink: 0;
+  }
+
+  /* Let full-width pages take up 100vh */
+  .content-section.full-width {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  /* Minimal spacing for split layout since nav overlays the image */
+  .content-top-spacing {
+    height: 20px;
+  }
+
+  /* For full width, we need top spacing so the nav doesn't overlap text */
+  .content-section.full-width .content-top-spacing {
+    height: 120px;
+  }
+
+  /* Adjust padding so mobile users have edge space */
+  .content-inner, 
+  .content-section.full-width .content-inner {
+    padding: 1rem 1.5rem 4rem 1.5rem;
+  }
+
+  /* Navigation becomes centered header */
+  .nav-container {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.9), transparent);
+    width: 100%;
+    justify-content: center;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-item {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  /* Scale down massive titles */
+  h1.display-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+
+  h2.section-title {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  p.body-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .minimal-card {
+    padding: 1.5rem 0;
+  }
+}
+
+/* --- Touch Devices Fixes --- */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+  .custom-cursor-dot,
+  .custom-cursor-ring {
+    display: none !important;
+  }
+}
