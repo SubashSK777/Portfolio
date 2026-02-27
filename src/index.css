@@ -391,18 +391,15 @@ p.body-text {
   }
 
   /* Make sure the image section sits at the top and scales safely */
+  /* Hide the image section entirely on mobile */
   .media-section {
-    width: 100vw;
-    height: 40vh;
-    flex-shrink: 0;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    display: none;
   }
 
-  /* The content section takes up the remaining view height */
+  /* The content section takes up the full view height */
   .content-section {
     width: 100vw;
-    height: 60vh;
+    height: 100vh;
     flex-shrink: 0;
   }
 
@@ -412,9 +409,9 @@ p.body-text {
     height: 100vh;
   }
 
-  /* Minimal spacing for split layout since nav overlays the image */
+  /* Minimal spacing for split layout since nav overlays the screen */
   .content-top-spacing {
-    height: 20px;
+    height: 120px;
   }
 
   /* For full width, we need top spacing so the nav doesn't overlap text */
