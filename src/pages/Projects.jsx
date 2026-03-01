@@ -4,6 +4,14 @@ import PageTransition from '../components/PageTransition';
 
 const hardcodedProjects = [
     {
+        id: 0,
+        name: 'Builder-Suite',
+        html_url: 'https://github.com/SubashSK777/Builder-Suite',
+        description: 'A comprehensive suite of powerful development and deployment tools designed to streamline the software lifecycle, enhance productivity, and provide advanced architectural integrations.',
+        language: 'React / Node.js',
+        stargazers_count: '—'
+    },
+    {
         id: 1,
         name: 'Multi-Agent-AI',
         html_url: 'https://github.com/SubashSK777/Multi-Agent-AI',
