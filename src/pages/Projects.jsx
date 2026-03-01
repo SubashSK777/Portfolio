@@ -8,7 +8,7 @@ const hardcodedProjects = [
         name: 'Builder-Suite',
         html_url: 'https://github.com/SubashSK777/Builder-Suite',
         description: 'A comprehensive suite of powerful development and deployment tools designed to streamline the software lifecycle, enhance productivity, and provide advanced architectural integrations.',
-        language: 'React / Node.js',
+        language: 'React / Node.js / Python',
         stargazers_count: '—'
     },
     {
@@ -16,7 +16,7 @@ const hardcodedProjects = [
         name: 'Multi-Agent-AI',
         html_url: 'https://github.com/SubashSK777/Multi-Agent-AI',
         description: 'An advanced Multi-Agent System (MAS) leveraging CrewAI to integrate System 2 thinking. It enables AI to handle complex decision-making through intuitive and analytical processes for scalable, collaborative AI operations.',
-        language: 'Python',
+        language: 'Python / CrewAI',
         stargazers_count: '—'
     },
     {
@@ -24,7 +24,7 @@ const hardcodedProjects = [
         name: 'SkillMatch-AI_Resume_Analyzer',
         html_url: 'https://github.com/SubashSK777/SkillMatch-AI_Resume_Analyzer',
         description: 'An advanced AI application utilizing LLMs and OpenAI for comprehensive resume analysis. It dynamically extracts LinkedIn data via Selenium, evaluates strengths, identifies weaknesses, and offers personalized job title recommendations.',
-        language: 'Python',
+        language: 'Python / OpenAI / Selenium',
         stargazers_count: '—'
     },
     {
@@ -32,7 +32,7 @@ const hardcodedProjects = [
         name: 'Med_AI',
         html_url: 'https://github.com/SubashSK777/Med_AI',
         description: 'An AI-driven medical assistance application that utilizes machine learning to cluster symptoms and offer accurate diagnostics based on user input. Integrated with Azure Computer Vision API for handwritten text extraction.',
-        language: 'Jupyter Notebook',
+        language: 'Python / Machine Learning / Azure CV',
         stargazers_count: '—'
     },
     {
@@ -40,7 +40,7 @@ const hardcodedProjects = [
         name: 'Racing-CV',
         html_url: 'https://github.com/SubashSK777/Racing-CV',
         description: 'A dedicated Computer Vision program to play high-speed racing games using hand gestures instead of a mouse or keyboard. It utilizes OpenCV, CVZone, and Pynput for versatile control scheme adaptation.',
-        language: 'Python',
+        language: 'Python / OpenCV / CVZone / Pynput',
         stargazers_count: '—'
     },
     {
@@ -48,7 +48,7 @@ const hardcodedProjects = [
         name: 'Multi-Agent-Market-Researcher',
         html_url: 'https://github.com/SubashSK777/Multi-Agent-Market-Researcher',
         description: 'A comprehensive financial and market analysis tool that employs multiple specialized AI agents (CrewAI, Langchain, Google Gemini Flash). It autonomously gathers, analyzes, and compiles internet data into cohesive factual reports.',
-        language: 'Python',
+        language: 'Python / CrewAI / Langchain / Gemini',
         stargazers_count: '—'
     }
 ];
