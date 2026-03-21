@@ -44,7 +44,7 @@ const Contact = () => {
                                     <MessageSquare size={24} color="#ffffff" />
                                 </div>
                                 <div>
-                                    <strong style={{ display: 'block', color: '#888', fontFamily: 'var(--font-display)', fontSize: '0.8rem', letterSpacing: '2px', marginBottom: '0.5rem' }}>WHATSAPP // DIRECT LINK</strong>
+                                    <strong style={{ display: 'block', color: '#888', fontFamily: 'var(--font-display)', fontSize: '0.8rem', letterSpacing: '2px', marginBottom: '0.5rem' }}>WHATSAPP</strong>
                                     <span className="body-text" style={{ fontSize: '1.2rem', color: '#fff' }}>(+91) 8148826206</span>
                                 </div>
                             </a>

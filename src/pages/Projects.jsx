@@ -50,6 +50,30 @@ const hardcodedProjects = [
         description: 'A comprehensive financial and market analysis tool that employs multiple specialized AI agents (CrewAI, Langchain, Google Gemini Flash). It autonomously gathers, analyzes, and compiles internet data into cohesive factual reports.',
         language: 'Python / CrewAI / Langchain / Gemini',
         stargazers_count: '—'
+    },
+    {
+        id: 6,
+        name: 'House-Price-Prediction',
+        html_url: 'https://github.com/SubashSK777/House-Price-Prediction',
+        description: 'A machine learning model to predict house prices using various regression techniques.',
+        language: 'Python / Jupyter Notebook',
+        stargazers_count: '—'
+    },
+    {
+        id: 7,
+        name: 'Customer-Churn-Prediction',
+        html_url: 'https://github.com/SubashSK777/Customer-Churn-Prediction',
+        description: 'An analytical model determining customer churn to provide insights and improve retention strategies.',
+        language: 'Python / Machine Learning',
+        stargazers_count: '—'
+    },
+    {
+        id: 8,
+        name: 'End-to-End-Sales-Dashboard-and-SQL-Analysis',
+        html_url: 'https://github.com/SubashSK777/End-to-End-Sales-Dashboard-and-SQL-Analysis',
+        description: 'A comprehensive end-to-end sales dashboard providing actionable insights through detailed SQL analysis.',
+        language: 'SQL / Data Visualization',
+        stargazers_count: '—'
     }
 ];
 
