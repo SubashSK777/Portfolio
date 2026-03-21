@@ -95,7 +95,7 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-        time += 0.0003; // Much slower progression
+        time += 0.0002; // Ultra slow progression
         const posAttr = geometry.attributes.position;
         const colorAttr = geometry.attributes.color;
         const width = window.innerWidth;
@@ -104,22 +104,26 @@ const BackgroundOverlay = () => {
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const p = particles[i];
 
-            // Flow field calculation
-            const scale = 0.001;
-            let angle = Math.sin(p.x * scale + time + p.offsetX) * 1.2 + Math.cos(p.y * scale + time + p.offsetY) * 1.2;
+            // Large scale noise field for smooth "river" flow
+            const scale = 0.0006; 
+            const noise = (Math.sin(p.x * scale + time + p.offsetX) + Math.cos(p.y * scale + time + p.offsetY)) * 0.5;
+            
+            // Base directional bias (drifting slowly to the right-down diagonally like a river)
+            let angle = 0.5 + noise * 0.8; 
 
-            // Interaction calculation
+            // Peaceful Interaction - slower and more subtle push
             const dx = p.x - mousePos.x;
             const dy = p.y - mousePos.y;
             const distSq = dx * dx + dy * dy;
-            const radiusSq = 25000;
+            const radiusSq = 40000;
 
             if (distSq > 0 && distSq < radiusSq) {
                 const force = (radiusSq - distSq) / radiusSq;
                 const targetAngle = Math.atan2(dy, dx);
-                angle += (targetAngle - angle) * force * 1.5;
+                angle += (targetAngle - angle) * force * 0.8;
             }
 
+            // Smooth movement
             p.x += Math.cos(angle) * p.speed;
             p.y += Math.sin(angle) * p.speed;
 
@@ -133,9 +137,9 @@ const BackgroundOverlay = () => {
 
             posAttr.setXYZ(i, p.x, p.y, 0);
 
-            // Blinking effect
+            // Subtle blink
             if (p.isBlinker) {
-                const b = 0.3 + Math.abs(Math.sin(time * 50 * p.blinkSpeed + p.blinkOffset)) * 0.7;
+                const b = 0.4 + Math.abs(Math.sin(time * 30 * p.blinkSpeed + p.blinkOffset)) * 0.6;
                 colorAttr.setXYZ(i, b, b, b);
             }
         }
