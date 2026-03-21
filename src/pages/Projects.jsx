@@ -74,6 +74,14 @@ const hardcodedProjects = [
         description: 'A comprehensive end-to-end sales dashboard providing actionable insights through detailed SQL analysis.',
         language: 'SQL / Data Visualization',
         stargazers_count: '—'
+    },
+    {
+        id: 9,
+        name: 'IEEE-Paper-Builder',
+        html_url: 'https://github.com/SubashSK777/IEEE-Paper-Builder',
+        description: 'A tool to generate and format research papers following IEEE standards. Streamlines the document creation process.',
+        language: 'Python',
+        stargazers_count: '—'
     }
 ];
 
@@ -98,15 +106,20 @@ const Projects = () => {
                 >
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {hardcodedProjects.map((repo, i) => (
-                            <a key={repo.id} href={repo.html_url} target="_blank" rel="noreferrer" className="minimal-card" style={{ display: 'block', textDecoration: 'none' }}>
-                                <h2 className="section-title" style={{ marginBottom: '1rem', color: '#fff' }}>{repo.name}</h2>
+                            <div key={repo.id} className="minimal-card" style={{ display: 'block', textDecoration: 'none' }}>
+                                <a href={repo.html_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                                    <h2 className="section-title" style={{ marginBottom: '1rem', color: '#fff' }}>{repo.name}</h2>
+                                </a>
                                 <p className="body-text" style={{ fontSize: '0.9rem', marginBottom: '1.5rem' }}>
                                     {repo.description}
                                 </p>
-                                <div style={{ display: 'flex', gap: '1.5rem', fontFamily: 'var(--font-display)', fontSize: '0.7rem', color: '#ffffff', letterSpacing: '2px' }}>
+                                <div style={{ display: 'flex', gap: '1.5rem', fontFamily: 'var(--font-display)', fontSize: '0.7rem', color: '#ffffff', letterSpacing: '2px', alignItems: 'center' }}>
                                     <span>{repo.language}</span>
+                                    <a href="#" target="_blank" rel="noreferrer" style={{ marginLeft: 'auto', padding: '0.5rem 1rem', border: '1px solid var(--border-color)', color: '#fff', textDecoration: 'none', transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff'; }}>
+                                        VISIT
+                                    </a>
                                 </div>
-                            </a>
+                            </div>
                         ))}
                     </div>
                 </motion.div>
