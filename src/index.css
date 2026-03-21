@@ -160,7 +160,7 @@ ul {
 }
 
 .content-section.full-width .content-inner {
-  padding: 0 25vw 10vh 25vw;
+  padding: 0 18vw 10vh 18vw;
   display: flex;
   flex-direction: column;
 }
@@ -179,11 +179,11 @@ h1.display-title {
 h2.section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 4px;
   color: var(--text-muted);
-  margin-bottom: 2.2rem;
+  margin-bottom: 2.22rem;
   position: relative;
 }
 
@@ -199,12 +199,12 @@ h2.section-title::after {
 }
 
 p.body-text {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 1.8;
   color: var(--text-main);
   font-weight: 400;
   /* Made slightly less bold */
-  max-width: 900px;
+  max-width: 1100px;
 }
 
 /* --- Navigation --- */

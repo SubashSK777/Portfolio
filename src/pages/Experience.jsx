@@ -28,7 +28,7 @@ const Experience = () => {
                             <span>&lt; 1 YEAR EXPERIENCE</span>
                         </div>
 
-                        <p className="body-text" style={{ fontSize: '1.55rem', lineHeight: 1.8, marginBottom: '3rem', color: '#f0f0f0' }}>
+                        <p className="body-text" style={{ lineHeight: 1.8, marginBottom: '3rem', color: '#f0f0f0' }}>
                             Spearheading the research, development, and integration of intelligent AI and machine learning systems.
                             Executing adaptive problem-solving heuristics utilizing advanced Python ecosystems and modern machine learning frameworks.
                         </p>
