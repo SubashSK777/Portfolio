@@ -25,8 +25,9 @@ const BackgroundOverlay = () => {
     currentMount.appendChild(renderer.domElement);
 
     // 2. Geometry creation
-    const PARTICLE_COUNT = 6500;
+    const PARTICLE_COUNT = 5000;
     const positions = new Float32Array(PARTICLE_COUNT * 3);
+    const colors = new Float32Array(PARTICLE_COUNT * 3);
     
     // Initialize properties
     const particles = [];
@@ -37,24 +38,32 @@ const BackgroundOverlay = () => {
         particles.push({
             x: x,
             y: y,
-            speed: 0.2 + Math.random() * 0.4, // Extremely slow
-            offsetX: Math.random() * 10000,
-            offsetY: Math.random() * 10000
+            speed: 0.12 + Math.random() * 0.25, // Even slower
+            offsetX: Math.random() * 20000,
+            offsetY: Math.random() * 20000,
+            blinkOffset: Math.random() * Math.PI * 2,
+            blinkSpeed: 0.02 + Math.random() * 0.05,
+            isBlinker: Math.random() > 0.7 // Only some dots blink
         });
 
         positions[i * 3] = x;
         positions[i * 3 + 1] = y;
         positions[i * 3 + 2] = 0;
+
+        colors[i * 3] = 1;
+        colors[i * 3 + 1] = 1;
+        colors[i * 3 + 2] = 1;
     }
 
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        color: 0xffffff,
-        size: 1.5,
+        size: 2.2, // Slightly bigger
         transparent: true,
-        opacity: 0.6,
+        vertexColors: true,
+        opacity: 0.7,
         sizeAttenuation: false
     });
 
@@ -86,35 +95,36 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-        time += 0.0004; // Very slow time progression
+        time += 0.0003; // Much slower progression
         const posAttr = geometry.attributes.position;
+        const colorAttr = geometry.attributes.color;
         const width = window.innerWidth;
         const height = window.innerHeight;
 
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const p = particles[i];
 
-            // Subtle flow field calculation
-            const scale = 0.0012;
-            let angle = Math.sin(p.x * scale + time + p.offsetX) * 1.5 + Math.cos(p.y * scale + time + p.offsetY) * 1.5;
+            // Flow field calculation
+            const scale = 0.001;
+            let angle = Math.sin(p.x * scale + time + p.offsetX) * 1.2 + Math.cos(p.y * scale + time + p.offsetY) * 1.2;
 
             // Interaction calculation
             const dx = p.x - mousePos.x;
             const dy = p.y - mousePos.y;
             const distSq = dx * dx + dy * dy;
-            const radiusSq = 30000;
+            const radiusSq = 25000;
 
             if (distSq > 0 && distSq < radiusSq) {
                 const force = (radiusSq - distSq) / radiusSq;
                 const targetAngle = Math.atan2(dy, dx);
-                angle += (targetAngle - angle) * force * 2.0;
+                angle += (targetAngle - angle) * force * 1.5;
             }
 
             p.x += Math.cos(angle) * p.speed;
             p.y += Math.sin(angle) * p.speed;
 
             // Wrapping bounds
-            const pad = 50;
+            const pad = 30;
             if (p.x < -width/2 - pad) p.x = width/2 + pad;
             else if (p.x > width/2 + pad) p.x = -width/2 - pad;
 
@@ -122,9 +132,16 @@ const BackgroundOverlay = () => {
             else if (p.y > height/2 + pad) p.y = -height/2 - pad;
 
             posAttr.setXYZ(i, p.x, p.y, 0);
+
+            // Blinking effect
+            if (p.isBlinker) {
+                const b = 0.3 + Math.abs(Math.sin(time * 50 * p.blinkSpeed + p.blinkOffset)) * 0.7;
+                colorAttr.setXYZ(i, b, b, b);
+            }
         }
 
         posAttr.needsUpdate = true;
+        colorAttr.needsUpdate = true;
         renderer.render(scene, camera);
         
         animationFrameId = requestAnimationFrame(animate);
