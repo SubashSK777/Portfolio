@@ -127,24 +127,24 @@ const BackgroundOverlay = () => {
             const dx = p.x - mousePos.x;
             const dy = p.y - mousePos.y;
             const distSq = dx * dx + dy * dy;
-            const radiusSq = 15000; // Smaller radius as requested
+            const radiusSq = 45000; // Larger area of effect
 
             if (distSq < radiusSq) {
                 const force = (radiusSq - distSq) / radiusSq;
                 const repelAngle = Math.atan2(dy, dx);
-                // Apply impulse away from mouse
-                p.vx += Math.cos(repelAngle) * force * 1.5;
-                p.vy += Math.sin(repelAngle) * force * 1.5;
+                // Apply a softer impulse away from mouse for "smoother" push
+                p.vx += Math.cos(repelAngle) * force * 0.8;
+                p.vy += Math.sin(repelAngle) * force * 0.8;
             }
 
             // 3. Elastic Return (Snap back to river position)
-            const springForce = 0.05;
+            const springForce = 0.04; // Slightly slower recovery for "smoothness"
             p.vx += (p.flowX - p.x) * springForce;
             p.vy += (p.flowY - p.y) * springForce;
 
             // 4. Friction & Physics Update
-            p.vx *= 0.92;
-            p.vy *= 0.92;
+            p.vx *= 0.94; // Higher friction for a more "viscous/buttery" feel
+            p.vy *= 0.94;
             p.x += p.vx;
             p.y += p.vy;
 
