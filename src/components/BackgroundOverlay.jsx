@@ -25,59 +25,41 @@ const BackgroundOverlay = () => {
     currentMount.appendChild(renderer.domElement);
 
     // 2. Geometry creation
-    const SEGMENTS_COUNT = 100; // Total noodles
-    const HISTORY_LENGTH = 15; // Segments per noodle
-    const TOTAL_SEGMENTS = SEGMENTS_COUNT * (HISTORY_LENGTH - 1);
-    
-    const linePositions = new Float32Array(TOTAL_SEGMENTS * 2 * 3);
-    const dotPositions = new Float32Array(SEGMENTS_COUNT * 3);
+    const PARTICLE_COUNT = 6500;
+    const positions = new Float32Array(PARTICLE_COUNT * 3);
     
     // Initialize properties
     const particles = [];
-    for (let i = 0; i < SEGMENTS_COUNT; i++) {
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
         const x = (Math.random() - 0.5) * window.innerWidth;
         const y = (Math.random() - 0.5) * window.innerHeight;
         
-        const history = [];
-        for (let j = 0; j < HISTORY_LENGTH; j++) {
-            history.push({ x, y });
-        }
-
         particles.push({
             x: x,
             y: y,
-            history: history,
-            speed: 0.6 + Math.random() * 0.8, // "Slow" lines
-            offsetX: Math.random() * 5000,
-            offsetY: Math.random() * 5000
+            speed: 0.2 + Math.random() * 0.4, // Extremely slow
+            offsetX: Math.random() * 10000,
+            offsetY: Math.random() * 10000
         });
+
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = 0;
     }
 
-    const lineGeometry = new THREE.BufferGeometry();
-    lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    const dotGeometry = new THREE.BufferGeometry();
-    dotGeometry.setAttribute('position', new THREE.BufferAttribute(dotPositions, 3));
-
-    const lineMaterial = new THREE.LineBasicMaterial({
+    const material = new THREE.PointsMaterial({
         color: 0xffffff,
+        size: 1.5,
         transparent: true,
-        opacity: 0.25,
-    });
-
-    const dotMaterial = new THREE.PointsMaterial({
-        color: 0xffffff,
-        size: 2.5,
-        transparent: true,
-        opacity: 0.5,
+        opacity: 0.6,
         sizeAttenuation: false
     });
 
-    const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-    const dots = new THREE.Points(dotGeometry, dotMaterial);
-    
-    scene.add(lines);
-    scene.add(dots);
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
 
     // 4. Interaction handling
     const mousePos = { x: -9999, y: -9999 };
@@ -104,75 +86,45 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-        time += 0.0008; // "Slow" flow
-        const linePosAttr = lineGeometry.attributes.position;
-        const dotPosAttr = dotGeometry.attributes.position;
+        time += 0.0004; // Very slow time progression
+        const posAttr = geometry.attributes.position;
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        let segmentIdx = 0;
-
-        for (let i = 0; i < SEGMENTS_COUNT; i++) {
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
             const p = particles[i];
 
-            // Flow field calculation (slimy/smooth)
-            const scale = 0.001;
-            let angle = Math.sin(p.x * scale + time + p.offsetX) * 2 + Math.cos(p.y * scale + time + p.offsetY) * 2;
+            // Subtle flow field calculation
+            const scale = 0.0012;
+            let angle = Math.sin(p.x * scale + time + p.offsetX) * 1.5 + Math.cos(p.y * scale + time + p.offsetY) * 1.5;
 
             // Interaction calculation
             const dx = p.x - mousePos.x;
             const dy = p.y - mousePos.y;
             const distSq = dx * dx + dy * dy;
-            const radiusSq = 40000;
+            const radiusSq = 30000;
 
             if (distSq > 0 && distSq < radiusSq) {
                 const force = (radiusSq - distSq) / radiusSq;
                 const targetAngle = Math.atan2(dy, dx);
-                angle += (targetAngle - angle) * force * 2.5;
+                angle += (targetAngle - angle) * force * 2.0;
             }
 
-            const vx = Math.cos(angle);
-            const vy = Math.sin(angle);
-
-            p.x += vx * p.speed;
-            p.y += vy * p.speed;
+            p.x += Math.cos(angle) * p.speed;
+            p.y += Math.sin(angle) * p.speed;
 
             // Wrapping bounds
-            const pad = 150;
-            let wrapped = false;
-            if (p.x < -width/2 - pad) { p.x = width/2 + pad; wrapped = true; }
-            else if (p.x > width/2 + pad) { p.x = -width/2 - pad; wrapped = true; }
+            const pad = 50;
+            if (p.x < -width/2 - pad) p.x = width/2 + pad;
+            else if (p.x > width/2 + pad) p.x = -width/2 - pad;
 
-            if (p.y < -height/2 - pad) { p.y = height/2 + pad; wrapped = true; }
-            else if (p.y > height/2 + pad) { p.y = -height/2 - pad; wrapped = true; }
+            if (p.y < -height/2 - pad) p.y = height/2 + pad;
+            else if (p.y > height/2 + pad) p.y = -height/2 - pad;
 
-            // Update history
-            if (wrapped) {
-                for(let j=0; j<HISTORY_LENGTH; j++) {
-                    p.history[j].x = p.x;
-                    p.history[j].y = p.y;
-                }
-            } else {
-                p.history.unshift({ x: p.x, y: p.y });
-                p.history.pop();
-            }
-
-            // Update line segments (noodles)
-            for (let j = 0; j < HISTORY_LENGTH - 1; j++) {
-                const h1 = p.history[j];
-                const h2 = p.history[j+1];
-
-                linePosAttr.setXYZ(segmentIdx, h1.x, h1.y, 0);
-                linePosAttr.setXYZ(segmentIdx + 1, h2.x, h2.y, 0);
-                segmentIdx += 2;
-            }
-
-            // Update leading dot
-            dotPosAttr.setXYZ(i, p.x, p.y, 0);
+            posAttr.setXYZ(i, p.x, p.y, 0);
         }
 
-        linePosAttr.needsUpdate = true;
-        dotPosAttr.needsUpdate = true;
+        posAttr.needsUpdate = true;
         renderer.render(scene, camera);
         
         animationFrameId = requestAnimationFrame(animate);
@@ -185,10 +137,8 @@ const BackgroundOverlay = () => {
         window.removeEventListener('resize', handleResize);
         cancelAnimationFrame(animationFrameId);
         if (currentMount) currentMount.removeChild(renderer.domElement);
-        lineGeometry.dispose();
-        dotGeometry.dispose();
-        lineMaterial.dispose();
-        dotMaterial.dispose();
+        geometry.dispose();
+        material.dispose();
         renderer.dispose();
     };
   }, []);
