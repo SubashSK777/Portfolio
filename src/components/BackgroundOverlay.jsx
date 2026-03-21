@@ -25,7 +25,7 @@ const BackgroundOverlay = () => {
     currentMount.appendChild(renderer.domElement);
 
     // 2. Geometry creation
-    const PARTICLE_COUNT = 4000;
+    const PARTICLE_COUNT = 3000;
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     const colors = new Float32Array(PARTICLE_COUNT * 3);
     
@@ -38,12 +38,12 @@ const BackgroundOverlay = () => {
         particles.push({
             x: x,
             y: y,
-            speed: 0.08 + Math.random() * 0.18, // Buttery slow
-            offsetX: Math.random() * 40000,
-            offsetY: Math.random() * 40000,
+            baseSpeed: 0.08 + Math.random() * 0.15, 
+            offsetX: Math.random() * 50000,
+            offsetY: Math.random() * 50000,
             blinkOffset: Math.random() * Math.PI * 2,
             blinkSpeed: 0.01 + Math.random() * 0.03,
-            isBlinker: Math.random() > 0.6 // Increased blinkers for "star" effect
+            isBlinker: Math.random() > 0.5
         });
 
         positions[i * 3] = x;
@@ -60,7 +60,7 @@ const BackgroundOverlay = () => {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-        size: 2.0, 
+        size: 2.2, 
         transparent: true,
         vertexColors: true,
         opacity: 0.65,
@@ -95,7 +95,7 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-        time += 0.0001; // Extremely slow
+        time += 0.00015; 
         const posAttr = geometry.attributes.position;
         const colorAttr = geometry.attributes.color;
         const width = window.innerWidth;
@@ -104,28 +104,33 @@ const BackgroundOverlay = () => {
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const p = particles[i];
 
-            // Ultra-large scale noise field for maximum "buttery" smoothness
-            const scale = 0.0004; 
+            // River Noise Flow
+            const scale = 0.00045; 
             const noise = (Math.sin(p.x * scale + time + p.offsetX) + Math.cos(p.y * scale + time + p.offsetY)) * 0.5;
-            
-            // Subtle directional bias
             let angle = 0.7 + noise * 0.6; 
 
-            // Peaceful Interaction - very subtle push
+            // Splatter Interaction
             const dx = p.x - mousePos.x;
             const dy = p.y - mousePos.y;
             const distSq = dx * dx + dy * dy;
-            const radiusSq = 30000;
+            const radiusSq = 35000;
+            let currentSpeed = p.baseSpeed;
 
             if (distSq > 0 && distSq < radiusSq) {
                 const force = (radiusSq - distSq) / radiusSq;
-                const targetAngle = Math.atan2(dy, dx);
-                angle += (targetAngle - angle) * force * 0.5;
+                
+                // Repel Angle (away from cursor)
+                const repelAngle = Math.atan2(dy, dx);
+                
+                // Mix river flow with splatter Repel force
+                angle = angle * (1 - force) + repelAngle * force;
+                
+                // Speed up on hover
+                currentSpeed += force * 4.5; 
             }
 
-            // Smooth buttery movement
-            p.x += Math.cos(angle) * p.speed;
-            p.y += Math.sin(angle) * p.speed;
+            p.x += Math.cos(angle) * currentSpeed;
+            p.y += Math.sin(angle) * currentSpeed;
 
             // Wrapping bounds
             const pad = 40;
@@ -137,7 +142,7 @@ const BackgroundOverlay = () => {
 
             posAttr.setXYZ(i, p.x, p.y, 0);
 
-            // "Star" twinkling effect
+            // Twinkle
             if (p.isBlinker) {
                 const b = 0.35 + Math.abs(Math.sin(time * 25 * p.blinkSpeed + p.blinkOffset)) * 0.65;
                 colorAttr.setXYZ(i, b, b, b);
