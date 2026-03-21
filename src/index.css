@@ -170,7 +170,7 @@ ul {
 h1.display-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
   text-transform: uppercase;
   line-height: 1.1;
   margin-bottom: 2rem;
@@ -180,11 +180,11 @@ h1.display-title {
 h2.section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   text-transform: uppercase;
   letter-spacing: 4px;
   color: var(--text-muted);
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   position: relative;
 }
 
