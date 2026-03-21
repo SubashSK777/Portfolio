@@ -180,7 +180,7 @@ h1.display-title {
 h2.section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   text-transform: uppercase;
   letter-spacing: 4px;
   color: var(--text-muted);
@@ -200,12 +200,12 @@ h2.section-title::after {
 }
 
 p.body-text {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   line-height: 1.8;
   color: var(--text-main);
   font-weight: 400;
   /* Made slightly less bold */
-  max-width: 700px;
+  max-width: 800px;
 }
 
 /* --- Navigation --- */
