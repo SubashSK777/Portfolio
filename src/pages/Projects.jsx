@@ -1,68 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import PageTransition from '../components/PageTransition';
 
 const hardcodedProjects = [
     {
         id: 0,
-        name: 'End-to-End-Sales-Dashboard-and-SQL-Analysis',
+        name: 'End-to-End Sales Dashboard',
         html_url: 'https://github.com/SubashSK777/End-to-End-Sales-Dashboard-and-SQL-Analysis',
+        app_url: 'https://end-to-end-sales-dashboard-and-sql-analysis.streamlit.app/',
         description: 'Comprehensive end-to-end sales dashboard providing actionable insights through detailed SQL analysis and interactive visualization metrics.',
-        language: 'SQL / Power BI / Data Analysis',
-        stargazers_count: '—'
+        language: 'SQL / Power BI / Data Analysis'
     },
     {
         id: 1,
-        name: 'Customer-Churn-Prediction',
+        name: 'Customer Churn Prediction',
         html_url: 'https://github.com/SubashSK777/Customer-Churn-Prediction',
+        app_url: 'https://customer-churn-prediction-jfyyu7dbjpbmmfpihy6red.streamlit.app/',
         description: 'Machine learning classification project identifying high-risk churn customers in telecom sectors with strategic insights and retention modelling.',
-        language: 'Python / ML / Scikit-Learn',
-        stargazers_count: '—'
+        language: 'Python / ML / Scikit-Learn'
     },
     {
         id: 2,
-        name: 'House-Price-Prediction',
+        name: 'House Price Prediction',
         html_url: 'https://github.com/SubashSK777/House-Price-Prediction',
+        app_url: 'https://house-price-prediction-subashsk777.streamlit.app/',
         description: 'Advanced regression modelling to predict residential real estate prices based on diverse structural and geographical features.',
-        language: 'Python / Regression / Pandas',
-        stargazers_count: '—'
+        language: 'Python / Regression / Pandas'
     },
     {
         id: 3,
-        name: 'IEEE-Paper-Builder',
+        name: 'IEEE Paper Builder',
         html_url: 'https://github.com/SubashSK777/IEEE-Paper-Builder',
         description: 'Automated document processing platform engineered to format academic research papers according to strict IEEE standards using React and Google Docs integrations.',
-        language: 'React / Node.js / Python',
-        stargazers_count: '—'
+        language: 'React / Node.js / Python'
     },
     {
         id: 4,
-        name: 'Multi-Agent-AI',
+        name: 'Multi-Agent AI',
         html_url: 'https://github.com/SubashSK777/Multi-Agent-AI',
         description: 'Sophisticated Multi-Agent System (MAS) architecture utilizing CrewAI for collaborative task management and advanced problem solving.',
-        language: 'Python / CrewAI / LLMs',
-        stargazers_count: '—'
+        language: 'Python / CrewAI / LLMs'
     },
     {
         id: 5,
-        name: 'SkillMatch-AI_Resume_Analyzer',
+        name: 'SkillMatch AI Resume Analyzer',
         html_url: 'https://github.com/SubashSK777/SkillMatch-AI_Resume_Analyzer',
         description: 'Neural NLP intelligence engine evaluating resume quality, performing LinkedIn scraping, and calculating skill gaps for optimized job matching.',
-        language: 'Python / Selenium / OpenAI',
-        stargazers_count: '—'
+        language: 'Python / Selenium / OpenAI'
     },
     {
         id: 6,
         name: 'Med_AI',
         html_url: 'https://github.com/SubashSK777/Med_AI',
         description: 'Medical diagnostic intelligence system leveraging Azure CV and clustering algorithms to decode prescriptions and suggest pathological pathways.',
-        language: 'Python / Flask / Azure / ML',
-        stargazers_count: '—'
+        language: 'Python / Flask / Azure / ML'
     }
 ];
 
 const Projects = () => {
-
     return (
         <PageTransition imageSrc={null} imageAlt="">
             <div>
@@ -81,19 +76,35 @@ const Projects = () => {
                     transition={{ delay: 0.4, duration: 0.8 }}
                 >
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {hardcodedProjects.map((repo, i) => (
-                            <div key={repo.id} className="minimal-card" style={{ display: 'block', textDecoration: 'none' }}>
-                                <a href={repo.html_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                        {hardcodedProjects.map((repo) => (
+                            <div key={repo.id} className="minimal-card">
+                                <a href={repo.html_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: '1.5rem' }}>
                                     <h2 className="section-title" style={{ marginBottom: '1rem', color: '#fff' }}>{repo.name}</h2>
+                                    <p className="body-text" style={{ fontSize: '0.9rem' }}>
+                                        {repo.description}
+                                    </p>
                                 </a>
-                                <p className="body-text" style={{ fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-                                    {repo.description}
-                                </p>
                                 <div style={{ display: 'flex', gap: '1.5rem', fontFamily: 'var(--font-display)', fontSize: '0.7rem', color: '#ffffff', letterSpacing: '2px', alignItems: 'center' }}>
                                     <span>{repo.language}</span>
-                                    <a href="#" target="_blank" rel="noreferrer" style={{ marginLeft: 'auto', padding: '0.5rem 1rem', border: '1px solid var(--border-color)', color: '#fff', textDecoration: 'none', transition: 'all 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff'; }}>
-                                        VISIT
-                                    </a>
+                                    {repo.app_url && (
+                                        <a 
+                                            href={repo.app_url} 
+                                            target="_blank" 
+                                            rel="noreferrer" 
+                                            style={{ 
+                                                marginLeft: 'auto', 
+                                                padding: '0.5rem 1rem', 
+                                                border: '1px solid var(--border-color)', 
+                                                color: '#fff', 
+                                                textDecoration: 'none', 
+                                                transition: 'all 0.3s ease' 
+                                            }} 
+                                            onMouseEnter={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; }} 
+                                            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff'; }}
+                                        >
+                                            VISIT
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         ))}

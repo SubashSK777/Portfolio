@@ -29,34 +29,49 @@ const BackgroundOverlay = () => {
     const positions = new Float32Array(PARTICLE_COUNT * 3);
     const colors = new Float32Array(PARTICLE_COUNT * 3);
     
-    // Initialize properties
+    // Use container dimensions
+    const width = currentMount.clientWidth;
+    const height = currentMount.clientHeight;
+
+    // Jittered Grid for truly uniform distribution
+    const cols = Math.ceil(Math.sqrt(PARTICLE_COUNT * (width / height)));
+    const rows = Math.ceil(PARTICLE_COUNT / cols);
+    const cellW = width / cols;
+    const cellH = height / rows;
+
     const particles = [];
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-        const x = (Math.random() - 0.5) * window.innerWidth;
-        const y = (Math.random() - 0.5) * window.innerHeight;
-        
-        particles.push({
-            x: x, // Actual rendered position
-            y: y,
-            flowX: x, // The "river" position they try to stay near
-            flowY: y,
-            vx: 0,
-            vy: 0,
-            baseSpeed: 0.1 + Math.random() * 0.2, 
-            offsetX: Math.random() * 100000,
-            offsetY: Math.random() * 100000,
-            blinkOffset: Math.random() * Math.PI * 2,
-            blinkSpeed: 0.01 + Math.random() * 0.03,
-            isBlinker: Math.random() > 0.5
-        });
+    let pIdx = 0;
+    for (let r = 0; r < rows && pIdx < PARTICLE_COUNT; r++) {
+        for (let c = 0; c < cols && pIdx < PARTICLE_COUNT; c++) {
+            // Position within cell + jitter
+            const x = (c * cellW + Math.random() * cellW) - width / 2;
+            const y = -(r * cellH + Math.random() * cellH) + height / 2;
+            
+            particles.push({
+                x: x,
+                y: y,
+                flowX: x,
+                flowY: y,
+                vx: 0,
+                vy: 0,
+                baseSpeed: 0.1 + Math.random() * 0.2, 
+                offsetX: Math.random() * 100000,
+                offsetY: Math.random() * 100000,
+                blinkOffset: Math.random() * Math.PI * 2,
+                blinkSpeed: 0.01 + Math.random() * 0.03,
+                isBlinker: Math.random() > 0.4,
+                dirMult: Math.random() > 0.5 ? 1 : -1 // Multi-directional flow
+            });
 
-        positions[i * 3] = x;
-        positions[i * 3 + 1] = y;
-        positions[i * 3 + 2] = 0;
+            positions[pIdx * 3] = x;
+            positions[pIdx * 3 + 1] = y;
+            positions[pIdx * 3 + 2] = 0;
 
-        colors[i * 3] = 1;
-        colors[i * 3 + 1] = 1;
-        colors[i * 3 + 2] = 1;
+            colors[pIdx * 3] = 1;
+            colors[pIdx * 3 + 1] = 1;
+            colors[pIdx * 3 + 2] = 1;
+            pIdx++;
+        }
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -111,7 +126,7 @@ const BackgroundOverlay = () => {
             // 1. Update the "River Flow" position (the anchor)
             const scale = 0.0004; 
             const noise = (Math.sin(p.flowX * scale + time + p.offsetX) + Math.cos(p.flowY * scale + time + p.offsetY)) * 0.5;
-            const flowAngle = 0.7 + noise * 0.6; 
+            const flowAngle = (0.7 + noise * 0.6) * p.dirMult; 
 
             p.flowX += Math.cos(flowAngle) * p.baseSpeed;
             p.flowY += Math.sin(flowAngle) * p.baseSpeed;

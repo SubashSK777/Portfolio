@@ -24,7 +24,7 @@ const About = () => {
                     <div className="minimal-card">
                         <h2 className="section-title">Background</h2>
                         <p className="body-text">
-                            I am a <a href="https://codeforces.com/profile/SubashSK" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', color: 'var(--text-main)', textUnderlineOffset: '4px' }}>Competitive Programmer</a> and Machine Learning aficionado.
+                            I am a <a href="https://codeforces.com/profile/SubashSK" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', color: 'var(--text-main)', textUnderlineOffset: '4px' }}>Competitive Programmer</a> and AI & Data Science Specialist.
                             My core drive focuses on understanding algorithms and translating that into scalable pipelines and generative models.
                         </p>
                     </div>
@@ -50,14 +50,7 @@ const About = () => {
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                         <Database size={22} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.1rem' }}>SQL</span>
                                     </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Coffee size={22} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.1rem' }}>Java</span>
-                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <strong style={{ color: '#fff', fontSize: '0.9rem', textTransform: 'uppercase', display: 'block', marginBottom: '1rem' }}>Disciplines</strong>
-                                <p className="body-text" style={{ fontSize: '1.1rem' }}>Generative AI, Machine Learning Pipelines, Vector Databases</p>
                             </div>
                         </div>
                     </div>
