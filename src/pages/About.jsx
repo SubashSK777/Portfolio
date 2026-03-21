@@ -42,13 +42,13 @@ const About = () => {
                         <h2 className="section-title">Technical Expertise</h2>
                         <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
                             <div>
-                                <strong style={{ color: '#fff', fontSize: '1.2rem', textTransform: 'uppercase', display: 'block', marginBottom: '1.5rem' }}>Languages</strong>
-                                <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                                        <Terminal size={28} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.4rem', color: '#fff' }}>Python</span>
+                                <strong style={{ color: '#fff', fontSize: '1.1rem', textTransform: 'uppercase', display: 'block', marginBottom: '1.2rem' }}>Languages</strong>
+                                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                                        <Terminal size={24} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.3rem', color: '#fff' }}>Python</span>
                                     </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-                                        <Database size={28} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.4rem', color: '#fff' }}>SQL</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                                        <Database size={24} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.3rem', color: '#fff' }}>SQL</span>
                                     </div>
                                 </div>
                             </div>

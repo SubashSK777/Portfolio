@@ -21,7 +21,7 @@ const Experience = () => {
                     transition={{ delay: 0.4, duration: 0.8 }}
                 >
                     <div className="minimal-card" style={{ borderBottom: 'none' }}>
-                        <h2 className="section-title">AI/ML Developer Intern</h2>
+                        <h2 className="section-title" style={{ fontSize: '1.8rem' }}>AI/ML Developer Intern</h2>
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', fontFamily: 'var(--font-display)', fontSize: '1.2rem', color: '#fff', letterSpacing: '2px' }}>
                             <span>GENPLUS INNOVATIONS PRIVATE LIMITED</span>
