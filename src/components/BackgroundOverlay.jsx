@@ -36,11 +36,15 @@ const BackgroundOverlay = () => {
         const y = (Math.random() - 0.5) * window.innerHeight;
         
         particles.push({
-            x: x,
+            x: x, // Actual rendered position
             y: y,
-            baseSpeed: 0.08 + Math.random() * 0.15, 
-            offsetX: Math.random() * 50000,
-            offsetY: Math.random() * 50000,
+            flowX: x, // The "river" position they try to stay near
+            flowY: y,
+            vx: 0,
+            vy: 0,
+            baseSpeed: 0.1 + Math.random() * 0.2, 
+            offsetX: Math.random() * 100000,
+            offsetY: Math.random() * 100000,
             blinkOffset: Math.random() * Math.PI * 2,
             blinkSpeed: 0.01 + Math.random() * 0.03,
             isBlinker: Math.random() > 0.5
@@ -63,7 +67,7 @@ const BackgroundOverlay = () => {
         size: 2.2, 
         transparent: true,
         vertexColors: true,
-        opacity: 0.65,
+        opacity: 0.7,
         sizeAttenuation: false
     });
 
@@ -104,47 +108,51 @@ const BackgroundOverlay = () => {
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             const p = particles[i];
 
-            // River Noise Flow
-            const scale = 0.00045; 
-            const noise = (Math.sin(p.x * scale + time + p.offsetX) + Math.cos(p.y * scale + time + p.offsetY)) * 0.5;
-            let angle = 0.7 + noise * 0.6; 
+            // 1. Update the "River Flow" position (the anchor)
+            const scale = 0.0004; 
+            const noise = (Math.sin(p.flowX * scale + time + p.offsetX) + Math.cos(p.flowY * scale + time + p.offsetY)) * 0.5;
+            const flowAngle = 0.7 + noise * 0.6; 
 
-            // Splatter Interaction
+            p.flowX += Math.cos(flowAngle) * p.baseSpeed;
+            p.flowY += Math.sin(flowAngle) * p.baseSpeed;
+
+            // Wrapping for flow position
+            const pad = 100;
+            if (p.flowX < -width/2 - pad) p.flowX = width/2 + pad;
+            else if (p.flowX > width/2 + pad) p.flowX = -width/2 - pad;
+            if (p.flowY < -height/2 - pad) p.flowY = height/2 + pad;
+            else if (p.flowY > height/2 + pad) p.flowY = -height/2 - pad;
+
+            // 2. Interaction (Ripple/Push)
             const dx = p.x - mousePos.x;
             const dy = p.y - mousePos.y;
             const distSq = dx * dx + dy * dy;
-            const radiusSq = 35000;
-            let currentSpeed = p.baseSpeed;
+            const radiusSq = 15000; // Smaller radius as requested
 
-            if (distSq > 0 && distSq < radiusSq) {
+            if (distSq < radiusSq) {
                 const force = (radiusSq - distSq) / radiusSq;
-                
-                // Repel Angle (away from cursor)
                 const repelAngle = Math.atan2(dy, dx);
-                
-                // Mix river flow with splatter Repel force
-                angle = angle * (1 - force) + repelAngle * force;
-                
-                // Speed up on hover
-                currentSpeed += force * 4.5; 
+                // Apply impulse away from mouse
+                p.vx += Math.cos(repelAngle) * force * 1.5;
+                p.vy += Math.sin(repelAngle) * force * 1.5;
             }
 
-            p.x += Math.cos(angle) * currentSpeed;
-            p.y += Math.sin(angle) * currentSpeed;
+            // 3. Elastic Return (Snap back to river position)
+            const springForce = 0.05;
+            p.vx += (p.flowX - p.x) * springForce;
+            p.vy += (p.flowY - p.y) * springForce;
 
-            // Wrapping bounds
-            const pad = 40;
-            if (p.x < -width/2 - pad) p.x = width/2 + pad;
-            else if (p.x > width/2 + pad) p.x = -width/2 - pad;
-
-            if (p.y < -height/2 - pad) p.y = height/2 + pad;
-            else if (p.y > height/2 + pad) p.y = -height/2 - pad;
+            // 4. Friction & Physics Update
+            p.vx *= 0.92;
+            p.vy *= 0.92;
+            p.x += p.vx;
+            p.y += p.vy;
 
             posAttr.setXYZ(i, p.x, p.y, 0);
 
-            // Twinkle
+            // 5. Twinkle
             if (p.isBlinker) {
-                const b = 0.35 + Math.abs(Math.sin(time * 25 * p.blinkSpeed + p.blinkOffset)) * 0.65;
+                const b = 0.4 + Math.abs(Math.sin(time * 30 * p.blinkSpeed + p.blinkOffset)) * 0.6;
                 colorAttr.setXYZ(i, b, b, b);
             }
         }
