@@ -25,9 +25,11 @@ const BackgroundOverlay = () => {
     currentMount.appendChild(renderer.domElement);
 
     // 2. Geometry creation
-    const SEGMENTS_COUNT = 300;
-    const SEGMENT_LENGTH = 70; // "Long" lines
-    const linePositions = new Float32Array(SEGMENTS_COUNT * 2 * 3);
+    const SEGMENTS_COUNT = 100; // Total noodles
+    const HISTORY_LENGTH = 15; // Segments per noodle
+    const TOTAL_SEGMENTS = SEGMENTS_COUNT * (HISTORY_LENGTH - 1);
+    
+    const linePositions = new Float32Array(TOTAL_SEGMENTS * 2 * 3);
     const dotPositions = new Float32Array(SEGMENTS_COUNT * 3);
     
     // Initialize properties
@@ -36,12 +38,18 @@ const BackgroundOverlay = () => {
         const x = (Math.random() - 0.5) * window.innerWidth;
         const y = (Math.random() - 0.5) * window.innerHeight;
         
+        const history = [];
+        for (let j = 0; j < HISTORY_LENGTH; j++) {
+            history.push({ x, y });
+        }
+
         particles.push({
             x: x,
             y: y,
-            speed: 1.2 + Math.random() * 1.8,
-            offsetX: Math.random() * 1000,
-            offsetY: Math.random() * 1000
+            history: history,
+            speed: 0.6 + Math.random() * 0.8, // "Slow" lines
+            offsetX: Math.random() * 5000,
+            offsetY: Math.random() * 5000
         });
     }
 
@@ -54,14 +62,14 @@ const BackgroundOverlay = () => {
     const lineMaterial = new THREE.LineBasicMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.35,
+        opacity: 0.25,
     });
 
     const dotMaterial = new THREE.PointsMaterial({
         color: 0xffffff,
-        size: 2,
+        size: 2.5,
         transparent: true,
-        opacity: 0.6,
+        opacity: 0.5,
         sizeAttenuation: false
     });
 
@@ -96,32 +104,31 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-        time += 0.0015;
+        time += 0.0008; // "Slow" flow
         const linePosAttr = lineGeometry.attributes.position;
         const dotPosAttr = dotGeometry.attributes.position;
         const width = window.innerWidth;
         const height = window.innerHeight;
 
+        let segmentIdx = 0;
+
         for (let i = 0; i < SEGMENTS_COUNT; i++) {
             const p = particles[i];
 
-            if (isNaN(p.x)) p.x = 0;
-            if (isNaN(p.y)) p.y = 0;
-
             // Flow field calculation (slimy/smooth)
-            const scale = 0.0015;
-            let angle = Math.sin(p.x * scale + time + p.offsetX) + Math.cos(p.y * scale + time + p.offsetY);
+            const scale = 0.001;
+            let angle = Math.sin(p.x * scale + time + p.offsetX) * 2 + Math.cos(p.y * scale + time + p.offsetY) * 2;
 
             // Interaction calculation
             const dx = p.x - mousePos.x;
             const dy = p.y - mousePos.y;
             const distSq = dx * dx + dy * dy;
-            const radiusSq = 35000;
+            const radiusSq = 40000;
 
             if (distSq > 0 && distSq < radiusSq) {
                 const force = (radiusSq - distSq) / radiusSq;
                 const targetAngle = Math.atan2(dy, dx);
-                angle += (targetAngle - angle) * force * 1.8;
+                angle += (targetAngle - angle) * force * 2.5;
             }
 
             const vx = Math.cos(angle);
@@ -131,21 +138,36 @@ const BackgroundOverlay = () => {
             p.y += vy * p.speed;
 
             // Wrapping bounds
-            const pad = SEGMENT_LENGTH * 2;
-            if (p.x < -width/2 - pad) p.x = width/2 + pad;
-            else if (p.x > width/2 + pad) p.x = -width/2 - pad;
+            const pad = 150;
+            let wrapped = false;
+            if (p.x < -width/2 - pad) { p.x = width/2 + pad; wrapped = true; }
+            else if (p.x > width/2 + pad) { p.x = -width/2 - pad; wrapped = true; }
 
-            if (p.y < -height/2 - pad) p.y = height/2 + pad;
-            else if (p.y > height/2 + pad) p.y = -height/2 - pad;
+            if (p.y < -height/2 - pad) { p.y = height/2 + pad; wrapped = true; }
+            else if (p.y > height/2 + pad) { p.y = -height/2 - pad; wrapped = true; }
 
-            // Update line head/tail
-            const headIdx = i * 2;
-            const tailIdx = i * 2 + 1;
+            // Update history
+            if (wrapped) {
+                for(let j=0; j<HISTORY_LENGTH; j++) {
+                    p.history[j].x = p.x;
+                    p.history[j].y = p.y;
+                }
+            } else {
+                p.history.unshift({ x: p.x, y: p.y });
+                p.history.pop();
+            }
 
-            linePosAttr.setXYZ(headIdx, p.x, p.y, 0);
-            linePosAttr.setXYZ(tailIdx, p.x - vx * SEGMENT_LENGTH, p.y - vy * SEGMENT_LENGTH, 0);
+            // Update line segments (noodles)
+            for (let j = 0; j < HISTORY_LENGTH - 1; j++) {
+                const h1 = p.history[j];
+                const h2 = p.history[j+1];
 
-            // Update dot (the head of the line)
+                linePosAttr.setXYZ(segmentIdx, h1.x, h1.y, 0);
+                linePosAttr.setXYZ(segmentIdx + 1, h2.x, h2.y, 0);
+                segmentIdx += 2;
+            }
+
+            // Update leading dot
             dotPosAttr.setXYZ(i, p.x, p.y, 0);
         }
 

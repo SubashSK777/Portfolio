@@ -5,82 +5,58 @@ import PageTransition from '../components/PageTransition';
 const hardcodedProjects = [
     {
         id: 0,
-        name: 'Builder-Suite',
-        html_url: 'https://github.com/SubashSK777/Builder-Suite',
-        description: 'A comprehensive suite of powerful development and deployment tools designed to streamline the software lifecycle, enhance productivity, and provide advanced architectural integrations.',
-        language: 'React / Node.js / Python',
+        name: 'End-to-End-Sales-Dashboard-and-SQL-Analysis',
+        html_url: 'https://github.com/SubashSK777/End-to-End-Sales-Dashboard-and-SQL-Analysis',
+        description: 'Comprehensive end-to-end sales dashboard providing actionable insights through detailed SQL analysis and interactive visualization metrics.',
+        language: 'SQL / Power BI / Data Analysis',
         stargazers_count: '—'
     },
     {
         id: 1,
-        name: 'Multi-Agent-AI',
-        html_url: 'https://github.com/SubashSK777/Multi-Agent-AI',
-        description: 'An advanced Multi-Agent System (MAS) leveraging CrewAI to integrate System 2 thinking. It enables AI to handle complex decision-making through intuitive and analytical processes for scalable, collaborative AI operations.',
-        language: 'Python / CrewAI',
+        name: 'Customer-Churn-Prediction',
+        html_url: 'https://github.com/SubashSK777/Customer-Churn-Prediction',
+        description: 'Machine learning classification project identifying high-risk churn customers in telecom sectors with strategic insights and retention modelling.',
+        language: 'Python / ML / Scikit-Learn',
         stargazers_count: '—'
     },
     {
         id: 2,
-        name: 'SkillMatch-AI_Resume_Analyzer',
-        html_url: 'https://github.com/SubashSK777/SkillMatch-AI_Resume_Analyzer',
-        description: 'An advanced AI application utilizing LLMs and OpenAI for comprehensive resume analysis. It dynamically extracts LinkedIn data via Selenium, evaluates strengths, identifies weaknesses, and offers personalized job title recommendations.',
-        language: 'Python / OpenAI / Selenium',
+        name: 'House-Price-Prediction',
+        html_url: 'https://github.com/SubashSK777/House-Price-Prediction',
+        description: 'Advanced regression modelling to predict residential real estate prices based on diverse structural and geographical features.',
+        language: 'Python / Regression / Pandas',
         stargazers_count: '—'
     },
     {
         id: 3,
-        name: 'Med_AI',
-        html_url: 'https://github.com/SubashSK777/Med_AI',
-        description: 'An AI-driven medical assistance application that utilizes machine learning to cluster symptoms and offer accurate diagnostics based on user input. Integrated with Azure Computer Vision API for handwritten text extraction.',
-        language: 'Python / Machine Learning / Azure CV',
+        name: 'IEEE-Paper-Builder',
+        html_url: 'https://github.com/SubashSK777/IEEE-Paper-Builder',
+        description: 'Automated document processing platform engineered to format academic research papers according to strict IEEE standards using React and Google Docs integrations.',
+        language: 'React / Node.js / Python',
         stargazers_count: '—'
     },
     {
         id: 4,
-        name: 'Racing-CV',
-        html_url: 'https://github.com/SubashSK777/Racing-CV',
-        description: 'A dedicated Computer Vision program to play high-speed racing games using hand gestures instead of a mouse or keyboard. It utilizes OpenCV, CVZone, and Pynput for versatile control scheme adaptation.',
-        language: 'Python / OpenCV / CVZone / Pynput',
+        name: 'Multi-Agent-AI',
+        html_url: 'https://github.com/SubashSK777/Multi-Agent-AI',
+        description: 'Sophisticated Multi-Agent System (MAS) architecture utilizing CrewAI for collaborative task management and advanced problem solving.',
+        language: 'Python / CrewAI / LLMs',
         stargazers_count: '—'
     },
     {
         id: 5,
-        name: 'Multi-Agent-Market-Researcher',
-        html_url: 'https://github.com/SubashSK777/Multi-Agent-Market-Researcher',
-        description: 'A comprehensive financial and market analysis tool that employs multiple specialized AI agents (CrewAI, Langchain, Google Gemini Flash). It autonomously gathers, analyzes, and compiles internet data into cohesive factual reports.',
-        language: 'Python / CrewAI / Langchain / Gemini',
+        name: 'SkillMatch-AI_Resume_Analyzer',
+        html_url: 'https://github.com/SubashSK777/SkillMatch-AI_Resume_Analyzer',
+        description: 'Neural NLP intelligence engine evaluating resume quality, performing LinkedIn scraping, and calculating skill gaps for optimized job matching.',
+        language: 'Python / Selenium / OpenAI',
         stargazers_count: '—'
     },
     {
         id: 6,
-        name: 'House-Price-Prediction',
-        html_url: 'https://github.com/SubashSK777/House-Price-Prediction',
-        description: 'A machine learning model to predict house prices using various regression techniques.',
-        language: 'Python / Jupyter Notebook',
-        stargazers_count: '—'
-    },
-    {
-        id: 7,
-        name: 'Customer-Churn-Prediction',
-        html_url: 'https://github.com/SubashSK777/Customer-Churn-Prediction',
-        description: 'An analytical model determining customer churn to provide insights and improve retention strategies.',
-        language: 'Python / Machine Learning',
-        stargazers_count: '—'
-    },
-    {
-        id: 8,
-        name: 'End-to-End-Sales-Dashboard-and-SQL-Analysis',
-        html_url: 'https://github.com/SubashSK777/End-to-End-Sales-Dashboard-and-SQL-Analysis',
-        description: 'A comprehensive end-to-end sales dashboard providing actionable insights through detailed SQL analysis.',
-        language: 'SQL / Data Visualization',
-        stargazers_count: '—'
-    },
-    {
-        id: 9,
-        name: 'IEEE-Paper-Builder',
-        html_url: 'https://github.com/SubashSK777/IEEE-Paper-Builder',
-        description: 'A tool to generate and format research papers following IEEE standards. Streamlines the document creation process.',
-        language: 'Python',
+        name: 'Med_AI',
+        html_url: 'https://github.com/SubashSK777/Med_AI',
+        description: 'Medical diagnostic intelligence system leveraging Azure CV and clustering algorithms to decode prescriptions and suggest pathological pathways.',
+        language: 'Python / Flask / Azure / ML',
         stargazers_count: '—'
     }
 ];
