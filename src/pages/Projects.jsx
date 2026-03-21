@@ -79,12 +79,12 @@ const Projects = () => {
                         {hardcodedProjects.map((repo) => (
                             <div key={repo.id} className="minimal-card">
                                 <a href={repo.html_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: '1.5rem' }}>
-                                    <h2 className="section-title" style={{ marginBottom: '1rem', color: '#fff', fontSize: '1.5rem' }}>{repo.name}</h2>
-                                    <p className="body-text" style={{ fontSize: '1.25rem', opacity: 0.9, color: '#f0f0f0' }}>
+                                    <h2 className="section-title" style={{ color: '#fff' }}>{repo.name}</h2>
+                                    <p className="body-text" style={{ opacity: 0.9 }}>
                                         {repo.description}
                                     </p>
                                 </a>
-                                <div style={{ display: 'flex', gap: '2rem', fontFamily: 'var(--font-display)', fontSize: '0.95rem', color: '#ffffff', letterSpacing: '2px', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', gap: '2rem', fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#ffffff', letterSpacing: '2px', alignItems: 'center' }}>
                                     <span>{repo.language}</span>
                                     {repo.app_url && (
                                         <a 
@@ -94,9 +94,9 @@ const Projects = () => {
                                             style={{ 
                                                 marginLeft: 'auto', 
                                                 padding: '0.6rem 1.5rem', 
-                                                border: '2px solid #fff', 
+                                                border: '1.5px solid #fff', 
                                                 color: '#fff', 
-                                                fontSize: '0.9rem',
+                                                fontSize: '0.95rem',
                                                 textDecoration: 'none', 
                                                 transition: 'all 0.3s ease',
                                                 fontWeight: 'bold'

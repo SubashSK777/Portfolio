@@ -160,10 +160,9 @@ ul {
 }
 
 .content-section.full-width .content-inner {
-  padding: 0 15vw 10vh 15vw;
+  padding: 0 25vw 10vh 25vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 /* --- Minimal Typography --- */
@@ -180,11 +179,11 @@ h1.display-title {
 h2.section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 4px;
   color: var(--text-muted);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.2rem;
   position: relative;
 }
 
@@ -200,12 +199,12 @@ h2.section-title::after {
 }
 
 p.body-text {
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   line-height: 1.8;
   color: var(--text-main);
   font-weight: 400;
   /* Made slightly less bold */
-  max-width: 1000px;
+  max-width: 900px;
 }
 
 /* --- Navigation --- */

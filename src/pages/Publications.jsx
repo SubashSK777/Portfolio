@@ -77,23 +77,23 @@ const Publications = () => {
                   <span style={{ color: 'var(--text-muted)' }}>{pub.year}</span>
                 </div>
 
-                <h2 style={{ fontSize: '1.3rem', fontWeight: 500, lineHeight: 1.4, marginBottom: '0.8rem', color: '#fff' }}>
+                <h2 className="section-title" style={{ color: '#fff', marginBottom: '1rem', letterSpacing: '2px' }}>
                   {pub.title}
                 </h2>
 
-                <p className="body-text" style={{ fontSize: '1.15rem', marginBottom: '1.2rem', fontStyle: 'italic', color: '#fff' }}>
+                <p className="body-text" style={{ fontSize: '1.2rem', marginBottom: '1.5rem', fontStyle: 'italic', color: '#fff' }}>
                   in {pub.featured}
                 </p>
 
-                <p className="body-text" style={{ fontSize: '1.1rem', marginBottom: '2rem', color: '#ccc' }}>
+                <p className="body-text" style={{ marginBottom: '2.5rem' }}>
                   {pub.description}
                 </p>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.2rem' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '0.85rem', color: '#ffffff', letterSpacing: '1px', maxWidth: '80%' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#ffffff', letterSpacing: '1px', maxWidth: '80%' }}>
                     AUTHORS: {pub.authorship}
                   </span>
-                  <a href={pub.link} target="_blank" rel="noreferrer" className="minimal-button" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem' }}>
+                  <a href={pub.link} target="_blank" rel="noreferrer" className="minimal-button" style={{ padding: '0.6rem 1.5rem', fontSize: '0.95rem' }}>
                     view record
                   </a>
                 </div>
