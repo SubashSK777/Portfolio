@@ -170,17 +170,17 @@ ul {
 h1.display-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(3rem, 6vw, 5.5rem);
   text-transform: uppercase;
   line-height: 1.1;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   letter-spacing: -2px;
 }
 
 h2.section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.8rem;
+  font-size: 3rem;
   text-transform: uppercase;
   letter-spacing: 4px;
   color: var(--text-muted);
@@ -194,18 +194,18 @@ h2.section-title::after {
   bottom: -0.5rem;
   /* Lifted up cleanly to sit between Title and Text */
   left: 0;
-  width: 40px;
+  width: 60px;
   height: 1px;
   background: var(--text-muted);
 }
 
 p.body-text {
-  font-size: 1.35rem;
+  font-size: 1.7rem;
   line-height: 1.8;
   color: var(--text-main);
   font-weight: 400;
   /* Made slightly less bold */
-  max-width: 800px;
+  max-width: 1200px;
 }
 
 /* --- Navigation --- */
