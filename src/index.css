@@ -3,9 +3,9 @@
 :root {
   --bg-primary: #050505;
   --bg-secondary: #0c0c0c;
-  --text-main: #f0f0f0;
-  --text-muted: #888888;
-  --border-color: rgba(255, 255, 255, 0.05);
+  --text-main: #ffffff;
+  --text-muted: #cccccc;
+  --border-color: rgba(255, 255, 255, 0.15);
 
   --font-display: 'Syncopate', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
@@ -229,12 +229,12 @@ p.body-text {
 
 .nav-item {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 3px;
   position: relative;
   padding-bottom: 5px;
-  color: #a0a0a0;
+  color: #ffffff;
   transition: color 0.4s ease;
 }
 

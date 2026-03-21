@@ -29,23 +29,23 @@ const Contact = () => {
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-                            <a href="mailto:subashsk11831@gmail.com" className="minimal-card" style={{ display: 'flex', alignItems: 'center', gap: '2rem', padding: '1.5rem 0', textDecoration: 'none' }}>
-                                <div style={{ padding: '1.2rem', border: '1px solid var(--border-color)', borderRadius: '50%', display: 'flex' }}>
-                                    <Mail size={24} color="#ffffff" />
+                            <a href="mailto:subashsk11831@gmail.com" className="minimal-card" style={{ display: 'flex', alignItems: 'center', gap: '3rem', padding: '2.5rem 0', textDecoration: 'none' }}>
+                                <div style={{ padding: '1.5rem', border: '2px solid #fff', borderRadius: '50%', display: 'flex' }}>
+                                    <Mail size={32} color="#ffffff" />
                                 </div>
                                 <div>
-                                    <strong style={{ display: 'block', color: '#888', fontFamily: 'var(--font-display)', fontSize: '0.8rem', letterSpacing: '2px', marginBottom: '0.5rem' }}>E-MAIL PROTOCOL</strong>
-                                    <span className="body-text" style={{ fontSize: '1.2rem', color: '#fff' }}>subashsk11831@gmail.com</span>
+                                    <strong style={{ display: 'block', color: '#fff', fontFamily: 'var(--font-display)', fontSize: '1.1rem', letterSpacing: '4px', marginBottom: '1rem' }}>E-MAIL PROTOCOL</strong>
+                                    <span className="body-text" style={{ fontSize: '1.8rem', color: '#fff' }}>subashsk11831@gmail.com</span>
                                 </div>
                             </a>
 
-                            <a href="https://wa.me/918148826206" target="_blank" rel="noreferrer" className="minimal-card" style={{ display: 'flex', alignItems: 'center', gap: '2rem', padding: '1.5rem 0', textDecoration: 'none', borderBottom: 'none' }}>
-                                <div style={{ padding: '1.2rem', border: '1px solid var(--border-color)', borderRadius: '50%', display: 'flex' }}>
-                                    <MessageSquare size={24} color="#ffffff" />
+                            <a href="https://wa.me/918148826206" target="_blank" rel="noreferrer" className="minimal-card" style={{ display: 'flex', alignItems: 'center', gap: '3rem', padding: '2.5rem 0', textDecoration: 'none', borderBottom: 'none' }}>
+                                <div style={{ padding: '1.5rem', border: '2px solid #fff', borderRadius: '50%', display: 'flex' }}>
+                                    <MessageSquare size={32} color="#ffffff" />
                                 </div>
                                 <div>
-                                    <strong style={{ display: 'block', color: '#888', fontFamily: 'var(--font-display)', fontSize: '0.8rem', letterSpacing: '2px', marginBottom: '0.5rem' }}>WHATSAPP</strong>
-                                    <span className="body-text" style={{ fontSize: '1.2rem', color: '#fff' }}>(+91) 8148826206</span>
+                                    <strong style={{ display: 'block', color: '#fff', fontFamily: 'var(--font-display)', fontSize: '1.1rem', letterSpacing: '4px', marginBottom: '1rem' }}>WHATSAPP</strong>
+                                    <span className="body-text" style={{ fontSize: '1.8rem', color: '#fff' }}>(+91) 8148826206</span>
                                 </div>
                             </a>
 

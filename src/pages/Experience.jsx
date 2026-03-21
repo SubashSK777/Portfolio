@@ -23,28 +23,28 @@ const Experience = () => {
                     <div className="minimal-card" style={{ borderBottom: 'none' }}>
                         <h2 className="section-title">AI/ML Developer Intern</h2>
 
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', fontFamily: 'var(--font-display)', fontSize: '0.85rem' }}>
-                            <span style={{ color: '#fff' }}>GENPLUS INNOVATIONS PRIVATE LIMITED</span>
-                            <span style={{ color: '#ffffff' }}>&lt; 1 YEAR EXPERIENCE</span>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', fontFamily: 'var(--font-display)', fontSize: '1.2rem', color: '#fff', letterSpacing: '2px' }}>
+                            <span>GENPLUS INNOVATIONS PRIVATE LIMITED</span>
+                            <span>&lt; 1 YEAR EXPERIENCE</span>
                         </div>
 
-                        <p className="body-text" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+                        <p className="body-text" style={{ fontSize: '1.55rem', lineHeight: 1.8, marginBottom: '3rem', color: '#f0f0f0' }}>
                             Spearheading the research, development, and integration of intelligent AI and machine learning systems.
                             Executing adaptive problem-solving heuristics utilizing advanced Python ecosystems and modern machine learning frameworks.
                         </p>
 
-                        <div style={{ display: 'flex', gap: '2rem', marginTop: '3rem', flexWrap: 'wrap' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                <strong style={{ fontFamily: 'var(--font-display)', fontSize: '0.7rem', color: '#888', letterSpacing: '2px' }}>ROLE</strong>
-                                <span className="body-text" style={{ fontSize: '0.9rem' }}>Research & Development</span>
+                        <div style={{ display: 'flex', gap: '3rem', marginTop: '3rem', flexWrap: 'wrap' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                                <strong style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#fff', letterSpacing: '2px' }}>ROLE</strong>
+                                <span className="body-text" style={{ fontSize: '1.3rem', color: '#ccc' }}>Research & Development</span>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                <strong style={{ fontFamily: 'var(--font-display)', fontSize: '0.7rem', color: '#888', letterSpacing: '2px' }}>CORE</strong>
-                                <span className="body-text" style={{ fontSize: '0.9rem' }}>Machine Learning</span>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                                <strong style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#fff', letterSpacing: '2px' }}>CORE</strong>
+                                <span className="body-text" style={{ fontSize: '1.3rem', color: '#ccc' }}>Machine Learning</span>
                             </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                <strong style={{ fontFamily: 'var(--font-display)', fontSize: '0.7rem', color: '#888', letterSpacing: '2px' }}>FOCUS</strong>
-                                <span className="body-text" style={{ fontSize: '0.9rem' }}>System Integration</span>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                                <strong style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#fff', letterSpacing: '2px' }}>FOCUS</strong>
+                                <span className="body-text" style={{ fontSize: '1.3rem', color: '#ccc' }}>System Integration</span>
                             </div>
                         </div>
 

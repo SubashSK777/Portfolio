@@ -78,13 +78,13 @@ const Projects = () => {
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         {hardcodedProjects.map((repo) => (
                             <div key={repo.id} className="minimal-card">
-                                <a href={repo.html_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: '1.5rem' }}>
-                                    <h2 className="section-title" style={{ marginBottom: '1rem', color: '#fff' }}>{repo.name}</h2>
-                                    <p className="body-text" style={{ fontSize: '0.9rem' }}>
+                                <a href={repo.html_url} target="_blank" rel="noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: '2rem' }}>
+                                    <h2 className="section-title" style={{ marginBottom: '1.5rem', color: '#fff', fontSize: '2.4rem' }}>{repo.name}</h2>
+                                    <p className="body-text" style={{ fontSize: '1.4rem', opacity: 1, color: '#f0f0f0' }}>
                                         {repo.description}
                                     </p>
                                 </a>
-                                <div style={{ display: 'flex', gap: '1.5rem', fontFamily: 'var(--font-display)', fontSize: '0.7rem', color: '#ffffff', letterSpacing: '2px', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', gap: '2rem', fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#ffffff', letterSpacing: '2px', alignItems: 'center' }}>
                                     <span>{repo.language}</span>
                                     {repo.app_url && (
                                         <a 
@@ -93,11 +93,13 @@ const Projects = () => {
                                             rel="noreferrer" 
                                             style={{ 
                                                 marginLeft: 'auto', 
-                                                padding: '0.5rem 1rem', 
-                                                border: '1px solid var(--border-color)', 
+                                                padding: '0.8rem 2rem', 
+                                                border: '2px solid #fff', 
                                                 color: '#fff', 
+                                                fontSize: '1.1rem',
                                                 textDecoration: 'none', 
-                                                transition: 'all 0.3s ease' 
+                                                transition: 'all 0.3s ease',
+                                                fontWeight: 'bold'
                                             }} 
                                             onMouseEnter={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; }} 
                                             onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff'; }}
