@@ -5,8 +5,8 @@ import PageTransition from '../components/PageTransition';
 const hardcodedProjects = [
     {
         id: 0,
-        name: 'Builder-Suite',
-        html_url: 'https://github.com/SubashSK777/Builder-Suite',
+        name: 'IEEE-Paper-Builder',
+        html_url: 'https://github.com/SubashSK777/IEEE-Paper-Builder',
         description: 'A comprehensive suite of powerful development and deployment tools designed to streamline the software lifecycle, enhance productivity, and provide advanced architectural integrations.',
         language: 'React / Node.js / Python',
         stargazers_count: '—'
