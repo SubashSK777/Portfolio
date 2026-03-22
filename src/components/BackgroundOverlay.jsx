@@ -27,77 +27,9 @@ const BackgroundOverlay = () => {
     const height = window.innerHeight;
 
     // =========================
-    // 🌫️ NEBULA GRADIENT LAYER
+    // ⭐ STARS (MORE, CLEAN)
     // =========================
-    const nebulaTexture = new THREE.CanvasTexture(generateNebula());
-    const nebulaMaterial = new THREE.MeshBasicMaterial({
-      map: nebulaTexture,
-      transparent: true,
-      opacity: 0.25,
-    });
-
-    const nebulaMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(width, height),
-      nebulaMaterial
-    );
-    scene.add(nebulaMesh);
-
-    function generateNebula() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 512;
-      canvas.height = 512;
-      const ctx = canvas.getContext('2d');
-
-      const gradient = ctx.createRadialGradient(256, 256, 50, 256, 256, 256);
-      gradient.addColorStop(0, 'rgba(120,140,255,0.3)');
-      gradient.addColorStop(0.5, 'rgba(80,100,255,0.15)');
-      gradient.addColorStop(1, 'rgba(0,0,0,0)');
-
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 512, 512);
-
-      return canvas;
-    }
-
-    // =========================
-    // 🌌 MILKY WAY BAND
-    // =========================
-    const milkyTexture = new THREE.CanvasTexture(generateMilkyWay());
-    const milkyMaterial = new THREE.MeshBasicMaterial({
-      map: milkyTexture,
-      transparent: true,
-      opacity: 0.3,
-    });
-
-    const milkyWay = new THREE.Mesh(
-      new THREE.PlaneGeometry(width * 1.5, height * 0.5),
-      milkyMaterial
-    );
-
-    milkyWay.rotation.z = -0.3;
-    scene.add(milkyWay);
-
-    function generateMilkyWay() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 512;
-      canvas.height = 256;
-      const ctx = canvas.getContext('2d');
-
-      const gradient = ctx.createLinearGradient(0, 128, 512, 128);
-      gradient.addColorStop(0, 'transparent');
-      gradient.addColorStop(0.5, 'rgba(255,255,255,0.25)');
-      gradient.addColorStop(1, 'transparent');
-
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, 512, 256);
-
-      return canvas;
-    }
-
-    // =========================
-    // ⭐ STARS
-    // =========================
-    const COUNT = 250;
+    const COUNT = 400;
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
 
@@ -110,10 +42,9 @@ const BackgroundOverlay = () => {
       particles.push({
         x,
         y,
-        brightness: 0.4 + Math.random() * 0.6,
+        brightness: 0.5 + Math.random() * 0.5,
         blinkOffset: Math.random() * Math.PI * 2,
-        blinkSpeed: 0.003 + Math.random() * 0.004,
-        isBlinker: Math.random() > 0.2,
+        blinkSpeed: 0.006 + Math.random() * 0.006, // faster twinkle
         depth: Math.random() * 0.5 + 0.5,
       });
 
@@ -125,35 +56,35 @@ const BackgroundOverlay = () => {
       colors[i * 3 + 2] = 1;
     }
 
-    const starGeo = new THREE.BufferGeometry();
-    starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    starGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    const starMat = new THREE.PointsMaterial({
-      size: 1.2,
+    const material = new THREE.PointsMaterial({
+      size: 1.3,
       vertexColors: true,
       transparent: true,
       opacity: 0.9,
     });
 
-    const stars = new THREE.Points(starGeo, starMat);
+    const stars = new THREE.Points(geometry, material);
     scene.add(stars);
 
     // =========================
-    // 🌠 SHOOTING STARS
+    // 🌠 SHOOTING STARS (RARE)
     // =========================
     const shootingStars = [];
 
     function spawnShootingStar() {
       const geometry = new THREE.BufferGeometry();
-      const verts = new Float32Array([0, 0, 0, 100, -50, 0]);
+      const verts = new Float32Array([0, 0, 0, 120, -60, 0]);
 
       geometry.setAttribute('position', new THREE.BufferAttribute(verts, 3));
 
       const material = new THREE.LineBasicMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.9,
       });
 
       const line = new THREE.Line(geometry, material);
@@ -166,10 +97,7 @@ const BackgroundOverlay = () => {
 
       scene.add(line);
 
-      shootingStars.push({
-        line,
-        life: 0,
-      });
+      shootingStars.push({ line, life: 0 });
     }
 
     // =========================
@@ -193,16 +121,16 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-      time += 0.003;
+      time += 0.005; // slightly faster overall feel
 
-      mouse.x += (target.x - mouse.x) * 0.03;
-      mouse.y += (target.y - mouse.y) * 0.03;
+      mouse.x += (target.x - mouse.x) * 0.05;
+      mouse.y += (target.y - mouse.y) * 0.05;
 
-      const pos = starGeo.attributes.position;
-      const col = starGeo.attributes.color;
+      const pos = geometry.attributes.position;
+      const col = geometry.attributes.color;
 
       const pad = 600;
-      const drift = 0.015;
+      const drift = 0.03; // slightly faster drift
 
       for (let i = 0; i < COUNT; i++) {
         const p = particles[i];
@@ -218,8 +146,9 @@ const BackgroundOverlay = () => {
 
         pos.setXYZ(i, fx, fy, 0);
 
+        // ✨ stronger, faster twinkle
         const twinkle = Math.sin(time * p.blinkSpeed + p.blinkOffset);
-        const intensity = p.brightness * (0.8 + twinkle * 0.2);
+        const intensity = p.brightness * (0.6 + twinkle * 0.4);
 
         col.setXYZ(i, intensity, intensity, intensity);
       }
@@ -227,15 +156,15 @@ const BackgroundOverlay = () => {
       pos.needsUpdate = true;
       col.needsUpdate = true;
 
-      // shooting stars (rare)
-      if (Math.random() < 0.002) spawnShootingStar();
+      // 🌠 rare shooting stars
+      if (Math.random() < 0.003) spawnShootingStar();
 
       shootingStars.forEach((s, i) => {
-        s.line.position.x += 8;
-        s.line.position.y -= 4;
+        s.line.position.x += 10;
+        s.line.position.y -= 5;
         s.life++;
 
-        if (s.life > 60) {
+        if (s.life > 50) {
           scene.remove(s.line);
           shootingStars.splice(i, 1);
         }
