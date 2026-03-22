@@ -27,9 +27,9 @@ const BackgroundOverlay = () => {
     const height = window.innerHeight;
 
     // =========================
-    // ⭐ STARS (MORE, CLEAN)
+    // ⭐ STARS
     // =========================
-    const COUNT = 400;
+    const COUNT = 550;
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
 
@@ -44,7 +44,7 @@ const BackgroundOverlay = () => {
         y,
         brightness: 0.5 + Math.random() * 0.5,
         blinkOffset: Math.random() * Math.PI * 2,
-        blinkSpeed: 0.006 + Math.random() * 0.006, // faster twinkle
+        blinkSpeed: 0.008 + Math.random() * 0.008,
         depth: Math.random() * 0.5 + 0.5,
       });
 
@@ -61,43 +61,54 @@ const BackgroundOverlay = () => {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 1.3,
+      size: 1.4,
       vertexColors: true,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.95,
     });
 
     const stars = new THREE.Points(geometry, material);
     scene.add(stars);
 
     // =========================
-    // 🌠 SHOOTING STARS (RARE)
+    // 🌠 SHOOTING STARS (IMPROVED)
     // =========================
     const shootingStars = [];
 
     function spawnShootingStar() {
-      const geometry = new THREE.BufferGeometry();
-      const verts = new Float32Array([0, 0, 0, 120, -60, 0]);
+      const length = 220;
 
+      const geometry = new THREE.BufferGeometry();
+      const verts = new Float32Array([0, 0, 0, length, 0, 0]);
       geometry.setAttribute('position', new THREE.BufferAttribute(verts, 3));
 
       const material = new THREE.LineBasicMaterial({
         color: 0xffffff,
         transparent: true,
-        opacity: 0.9,
+        opacity: 1,
       });
 
       const line = new THREE.Line(geometry, material);
 
+      // random start
       line.position.set(
         Math.random() * width - width / 2,
-        height / 2,
+        Math.random() * height / 2,
         0
       );
 
+      // random angle (important)
+      const angle = -Math.PI / 4 + (Math.random() - 0.5) * 0.8;
+      line.rotation.z = angle;
+
       scene.add(line);
 
-      shootingStars.push({ line, life: 0 });
+      shootingStars.push({
+        line,
+        life: 0,
+        maxLife: 120,
+        speed: 4 + Math.random() * 2, // small variation
+      });
     }
 
     // =========================
@@ -107,8 +118,8 @@ const BackgroundOverlay = () => {
     let target = { x: 0, y: 0 };
 
     window.addEventListener('mousemove', (e) => {
-      target.x = (e.clientX - width / 2) * 0.02;
-      target.y = -(e.clientY - height / 2) * 0.02;
+      target.x = (e.clientX - width / 2) * 0.025;
+      target.y = -(e.clientY - height / 2) * 0.025;
     });
 
     window.addEventListener('resize', () => {
@@ -121,22 +132,22 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-      time += 0.005; // slightly faster overall feel
+      time += 0.007;
 
-      mouse.x += (target.x - mouse.x) * 0.05;
-      mouse.y += (target.y - mouse.y) * 0.05;
+      mouse.x += (target.x - mouse.x) * 0.06;
+      mouse.y += (target.y - mouse.y) * 0.06;
 
       const pos = geometry.attributes.position;
       const col = geometry.attributes.color;
 
       const pad = 600;
-      const drift = 0.03; // slightly faster drift
+      const drift = 0.06;
 
       for (let i = 0; i < COUNT; i++) {
         const p = particles[i];
 
         p.x -= drift;
-        p.y -= drift * 0.2;
+        p.y -= drift * 0.25;
 
         if (p.x < -width / 2 - pad) p.x = width / 2 + pad;
         if (p.y < -height / 2 - pad) p.y = height / 2 + pad;
@@ -146,9 +157,8 @@ const BackgroundOverlay = () => {
 
         pos.setXYZ(i, fx, fy, 0);
 
-        // ✨ stronger, faster twinkle
         const twinkle = Math.sin(time * p.blinkSpeed + p.blinkOffset);
-        const intensity = p.brightness * (0.6 + twinkle * 0.4);
+        const intensity = p.brightness * (0.5 + twinkle * 0.5);
 
         col.setXYZ(i, intensity, intensity, intensity);
       }
@@ -156,15 +166,24 @@ const BackgroundOverlay = () => {
       pos.needsUpdate = true;
       col.needsUpdate = true;
 
-      // 🌠 rare shooting stars
-      if (Math.random() < 0.003) spawnShootingStar();
+      // 🌠 MORE FREQUENT SPAWN
+      if (Math.random() < 0.008) spawnShootingStar();
 
+      // 🌠 UPDATE SHOOTING STARS
       shootingStars.forEach((s, i) => {
-        s.line.position.x += 10;
-        s.line.position.y -= 5;
+        const dirX = Math.cos(s.line.rotation.z);
+        const dirY = Math.sin(s.line.rotation.z);
+
+        s.line.position.x += dirX * s.speed;
+        s.line.position.y += dirY * s.speed;
+
         s.life++;
 
-        if (s.life > 50) {
+        // ✨ FADE OUT OVER TIME
+        const lifeRatio = s.life / s.maxLife;
+        s.line.material.opacity = 1 - lifeRatio;
+
+        if (s.life > s.maxLife) {
           scene.remove(s.line);
           shootingStars.splice(i, 1);
         }
