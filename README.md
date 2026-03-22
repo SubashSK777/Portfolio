@@ -11,7 +11,7 @@ Welcome to the central node of my digital footprint. This is a highly optimized,
 - **Motion:** Framer Motion (for fluid, cinematic page transitions).
 
 ## 🔗 Live Deployment
-🔗 **Live Link:** [https://portfolio-zeta-woad-65.vercel.app/](https://portfolio-zeta-woad-65.vercel.app/)
+🔗 **Live Link:** [https://subashkumar.vercel.app/](https://subashkumar.vercel.app/)
 
 Deploying this beast? It's Vercel-ready right out of the box. 
 

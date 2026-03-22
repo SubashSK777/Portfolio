@@ -22,7 +22,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          AI/ML Developer
+          AI & Data Science Specialist
         </motion.h2>
 
         <motion.p
@@ -31,7 +31,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          Based in India at Genplus Innovations Private Limited. Architecting sophisticated, data-driven systems leveraging machine learning and generative AI to solve complex computational challenges.
+          Based in India at Genplus Innovations Private Limited. Architecting sophisticated, data-driven systems leveraging Artificial Intelligence and Data Science to solve complex computational challenges.
         </motion.p>
 
         <motion.div

@@ -3,9 +3,9 @@
 :root {
   --bg-primary: #050505;
   --bg-secondary: #0c0c0c;
-  --text-main: #f0f0f0;
-  --text-muted: #888888;
-  --border-color: rgba(255, 255, 255, 0.05);
+  --text-main: #ffffff;
+  --text-muted: #cccccc;
+  --border-color: rgba(255, 255, 255, 0.15);
 
   --font-display: 'Syncopate', sans-serif;
   --font-body: 'Space Grotesk', sans-serif;
@@ -160,17 +160,16 @@ ul {
 }
 
 .content-section.full-width .content-inner {
-  padding: 0 15vw 10vh 15vw;
+  padding: 0 18vw 10vh 18vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 /* --- Minimal Typography --- */
 h1.display-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
   text-transform: uppercase;
   line-height: 1.1;
   margin-bottom: 2rem;
@@ -180,11 +179,11 @@ h1.display-title {
 h2.section-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 4px;
   color: var(--text-muted);
-  margin-bottom: 3rem;
+  margin-bottom: 2.22rem;
   position: relative;
 }
 
@@ -200,12 +199,12 @@ h2.section-title::after {
 }
 
 p.body-text {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   line-height: 1.8;
   color: var(--text-main);
   font-weight: 400;
   /* Made slightly less bold */
-  max-width: 700px;
+  max-width: 1100px;
 }
 
 /* --- Navigation --- */
@@ -229,12 +228,12 @@ p.body-text {
 
 .nav-item {
   font-family: var(--font-display);
-  font-size: 0.85rem;
+  font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 3px;
   position: relative;
   padding-bottom: 5px;
-  color: #555;
+  color: #ffffff;
   transition: color 0.4s ease;
 }
 

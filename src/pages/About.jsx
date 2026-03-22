@@ -24,7 +24,7 @@ const About = () => {
                     <div className="minimal-card">
                         <h2 className="section-title">Background</h2>
                         <p className="body-text">
-                            I am a <a href="https://codeforces.com/profile/SubashSK" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', color: 'var(--text-main)', textUnderlineOffset: '4px' }}>Competitive Programmer</a> and Machine Learning aficionado.
+                            I am a <a href="https://codeforces.com/profile/SubashSK" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline', color: 'var(--text-main)', textUnderlineOffset: '4px' }}>Competitive Programmer</a> and AI & Data Science Specialist.
                             My core drive focuses on understanding algorithms and translating that into scalable pipelines and generative models.
                         </p>
                     </div>
@@ -42,22 +42,15 @@ const About = () => {
                         <h2 className="section-title">Technical Expertise</h2>
                         <div style={{ display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
                             <div>
-                                <strong style={{ color: '#fff', fontSize: '0.9rem', textTransform: 'uppercase', display: 'block', marginBottom: '1rem' }}>Languages</strong>
-                                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Terminal size={22} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.1rem' }}>Python</span>
+                                <strong style={{ color: '#fff', fontFamily: 'var(--font-display)', fontSize: '1.1rem', textTransform: 'uppercase', display: 'block', marginBottom: '1.5rem', letterSpacing: '2px' }}>Languages</strong>
+                                <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                                        <Terminal size={24} color="var(--text-main)" /> <span className="body-text" style={{ color: '#fff' }}>Python</span>
                                     </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Database size={22} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.1rem' }}>SQL</span>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                        <Coffee size={22} color="var(--text-main)" /> <span className="body-text" style={{ fontSize: '1.1rem' }}>Java</span>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+                                        <Database size={24} color="var(--text-main)" /> <span className="body-text" style={{ color: '#fff' }}>SQL</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div>
-                                <strong style={{ color: '#fff', fontSize: '0.9rem', textTransform: 'uppercase', display: 'block', marginBottom: '1rem' }}>Disciplines</strong>
-                                <p className="body-text" style={{ fontSize: '1.1rem' }}>Generative AI, Machine Learning Pipelines, Vector Databases</p>
                             </div>
                         </div>
                     </div>

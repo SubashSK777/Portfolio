@@ -6,7 +6,7 @@ const Navbar = () => {
     <div className="nav-container">
       <nav className="nav-links">
         <NavLink to="/" end className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-          Index
+          Home
         </NavLink>
         <NavLink to="/about" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
           Profile
