@@ -78,7 +78,7 @@ const BackgroundOverlay = () => {
       return new THREE.CanvasTexture(canvas);
     };
 
-    const getStarSize = () => (window.innerWidth < 1024 ? 1.4 : 2.4);
+    const getStarSize = () => (window.innerWidth < 1024 ? 2.5 : 4.0);
 
     const material = new THREE.PointsMaterial({
       size: getStarSize(), 
@@ -88,7 +88,7 @@ const BackgroundOverlay = () => {
       opacity: 1.0,
       blending: THREE.AdditiveBlending, // Makes them luminous
       depthWrite: false,
-      sizeAttenuation: true,
+      sizeAttenuation: false,
     });
 
     const stars = new THREE.Points(geometry, material);
@@ -114,6 +114,7 @@ const BackgroundOverlay = () => {
     // ANIMATION
     // =========================
     let time = 0;
+    let animationFrameId;
 
     const animate = () => {
       time += 0.008;
@@ -159,12 +160,13 @@ const BackgroundOverlay = () => {
       col.needsUpdate = true;
 
       renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+      animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       mount.removeChild(renderer.domElement);
       renderer.dispose();
     };
