@@ -204,6 +204,9 @@ p.body-text {
   color: var(--text-main);
   font-weight: 400;
   max-width: 900px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .home-text-container {
@@ -479,9 +482,17 @@ p.body-text {
   }
 
   p.body-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.6;
     max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Universal fix for long links and emails */
+  a, span {
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .minimal-card {
