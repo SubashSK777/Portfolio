@@ -27,12 +27,12 @@ const BackgroundOverlay = () => {
     const height = window.innerHeight;
 
     // =========================
-    // ⭐ STARS (DENSE + COLORFUL)
+    // ⭐ STARS (DENSE + WHITE)
     // =========================
     const COUNT = 2200; 
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
-    const baseColors = new Float32Array(COUNT * 3); // Store initial colors
+    const baseColors = new Float32Array(COUNT * 3); 
 
     const particles = [];
 
@@ -54,24 +54,14 @@ const BackgroundOverlay = () => {
       positions[i * 3] = x;
       positions[i * 3 + 1] = y;
 
-      // Color distribution: 50% White, 25% Luminous Red, 25% Luminous Blue
-      let r = 1, g = 1, b = 1;
-      const themeRand = Math.random();
-      if (themeRand > 0.75) {
-        // Luminous Blue
-        r = 0.2; g = 0.6; b = 1;
-      } else if (themeRand > 0.5) {
-        // Luminous Red
-        r = 1; g = 0.3; b = 0.3;
-      }
+      // Pure white stars
+      baseColors[i * 3] = 1;
+      baseColors[i * 3 + 1] = 1;
+      baseColors[i * 3 + 2] = 1;
 
-      baseColors[i * 3] = r;
-      baseColors[i * 3 + 1] = g;
-      baseColors[i * 3 + 2] = b;
-
-      colors[i * 3] = r;
-      colors[i * 3 + 1] = g;
-      colors[i * 3 + 2] = b;
+      colors[i * 3] = 1;
+      colors[i * 3 + 1] = 1;
+      colors[i * 3 + 2] = 1;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -79,7 +69,7 @@ const BackgroundOverlay = () => {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 3.8, // Slightly larger as requested
+      size: 3.8, 
       vertexColors: true,
       transparent: true,
       opacity: 0.85,
@@ -146,11 +136,7 @@ const BackgroundOverlay = () => {
           ? p.brightness * (0.3 + twinkle * 0.7)
           : p.brightness * (0.5 + twinkle * 0.5);
 
-        col.setXYZ(i, 
-          baseColors[i * 3] * intensity, 
-          baseColors[i * 3 + 1] * intensity, 
-          baseColors[i * 3 + 2] * intensity
-        );
+        col.setXYZ(i, intensity, intensity, intensity);
       }
 
       pos.needsUpdate = true;
