@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #050505;
-  --bg-secondary: #0c0c0c;
+  --bg-primary: #000000;
+  --bg-secondary: #080808;
   --text-main: #ffffff;
   --text-muted: #cccccc;
   --border-color: rgba(255, 255, 255, 0.15);
@@ -106,7 +106,7 @@ ul {
   object-position: bottom center;
   /* anchors to the bottom */
   /* Cinematic Black & White / Noir filtering */
-  filter: grayscale(100%) contrast(1.1) brightness(0.7) sepia(10%) hue-rotate(180deg);
+  filter: grayscale(100%) contrast(1.1) brightness(0.7);
   transition: filter 0.6s ease, transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transform: scale(1);
   transform-origin: bottom center;

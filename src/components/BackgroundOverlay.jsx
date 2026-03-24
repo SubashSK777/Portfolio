@@ -27,12 +27,11 @@ const BackgroundOverlay = () => {
     const height = window.innerHeight;
 
     // =========================
-    // ⭐ STARS (DENSE + WHITE)
+    // ⭐ STARS (DENSE + PURE WHITE)
     // =========================
     const COUNT = 2200; 
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
-    const baseColors = new Float32Array(COUNT * 3); 
 
     const particles = [];
 
@@ -54,11 +53,7 @@ const BackgroundOverlay = () => {
       positions[i * 3] = x;
       positions[i * 3 + 1] = y;
 
-      // Pure white stars
-      baseColors[i * 3] = 1;
-      baseColors[i * 3 + 1] = 1;
-      baseColors[i * 3 + 2] = 1;
-
+      // Pure white initial state
       colors[i * 3] = 1;
       colors[i * 3 + 1] = 1;
       colors[i * 3 + 2] = 1;
@@ -72,7 +67,7 @@ const BackgroundOverlay = () => {
       size: 3.8, 
       vertexColors: true,
       transparent: true,
-      opacity: 0.85,
+      opacity: 1.0,  // Full opacity for pure white
       sizeAttenuation: true,
     });
 
@@ -136,6 +131,7 @@ const BackgroundOverlay = () => {
           ? p.brightness * (0.3 + twinkle * 0.7)
           : p.brightness * (0.5 + twinkle * 0.5);
 
+        // Direct gray-scale intensity (r=g=b) for pure white/gray
         col.setXYZ(i, intensity, intensity, intensity);
       }
 
