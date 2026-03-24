@@ -90,7 +90,7 @@ const Publications = () => {
                 </p>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '2rem' }}>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#ffffff', letterSpacing: '1px', maxWidth: '80%' }}>
+                  <span className="body-text" style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', color: '#ffffff', letterSpacing: '1px', opacity: 0.8 }}>
                     AUTHORS: {pub.authorship}
                   </span>
                   <a href={pub.link} target="_blank" rel="noreferrer" className="minimal-button" style={{ padding: '0.6rem 1.5rem', fontSize: '0.95rem' }}>
