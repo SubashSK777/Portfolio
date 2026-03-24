@@ -27,12 +27,11 @@ const BackgroundOverlay = () => {
     const height = window.innerHeight;
 
     // =========================
-    // ⭐ STARS (DENSE + VARIED)
+    // ⭐ STARS (DENSE + UNIFORM)
     // =========================
-    const COUNT = 2500; // Even denser for "night sky"
+    const COUNT = 2200; 
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
-    const baseColors = new Float32Array(COUNT * 3); // store initial colors
 
     const particles = [];
 
@@ -48,33 +47,16 @@ const BackgroundOverlay = () => {
         blinkSpeed: 0.01 + Math.random() * 0.02,
         depth: Math.random() * 0.5 + 0.5,
         pulse: Math.random() > 0.8,
-        travelSpeed: 1.5 + Math.random() * 4.5,
+        travelSpeed: 1.2 + Math.random() * 2.8, // Slightly slower speed
       });
 
       positions[i * 3] = x;
       positions[i * 3 + 1] = y;
 
-      // Color variation for night sky effect
-      let r = 1, g = 1, b = 1;
-      const themeRand = Math.random();
-      if (themeRand > 0.9) {
-        // Deep Blue
-        r = 0.6; g = 0.7; b = 1;
-      } else if (themeRand > 0.8) {
-        // Pale Blue
-        r = 0.9; g = 0.95; b = 1;
-      } else if (themeRand > 0.75) {
-        // Warm/Reddish
-        r = 1; g = 0.9; b = 0.85;
-      }
-
-      baseColors[i * 3] = r;
-      baseColors[i * 3 + 1] = g;
-      baseColors[i * 3 + 2] = b;
-
-      colors[i * 3] = r;
-      colors[i * 3 + 1] = g;
-      colors[i * 3 + 2] = b;
+      // Pure white stars
+      colors[i * 3] = 1;
+      colors[i * 3 + 1] = 1;
+      colors[i * 3 + 2] = 1;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -82,10 +64,10 @@ const BackgroundOverlay = () => {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 3.2, // Slightly larger as requested
+      size: 3.0, 
       vertexColors: true,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.85,
       sizeAttenuation: true,
     });
 
@@ -99,8 +81,8 @@ const BackgroundOverlay = () => {
     let target = { x: 0, y: 0 };
 
     window.addEventListener('mousemove', (e) => {
-      target.x = (e.clientX - width / 2) * 0.035;
-      target.y = -(e.clientY - height / 2) * 0.035;
+      target.x = (e.clientX - width / 2) * 0.03;
+      target.y = -(e.clientY - height / 2) * 0.03;
     });
 
     window.addEventListener('resize', () => {
@@ -113,34 +95,32 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-      time += 0.015;
+      time += 0.01; // Slightly slower twinkling
 
-      mouse.x += (target.x - mouse.x) * 0.08;
-      mouse.y += (target.y - mouse.y) * 0.08;
+      mouse.x += (target.x - mouse.x) * 0.06;
+      mouse.y += (target.y - mouse.y) * 0.06;
 
       const pos = geometry.attributes.position;
       const col = geometry.attributes.color;
 
-      const maxDist = Math.max(width, height) * 1.5;
-
       for (let i = 0; i < COUNT; i++) {
         const p = particles[i];
 
-        // 🌌 Warp-speed travel effect (Radial acceleration)
+        // 🌌 Radial trajectory (moving away from center)
         const dx = p.x;
         const dy = p.y;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
         
-        // Stars accelerate as they move away from center
-        const speedFactor = (dist / 120) + 0.5;
+        // Slightly reduced speed factor for smoother travel
+        const speedFactor = (dist / 200) + 0.35;
         p.x += (dx / dist) * p.travelSpeed * speedFactor;
         p.y += (dy / dist) * p.travelSpeed * speedFactor;
 
-        // Reset if they travel off-screen or too far
-        if (Math.abs(p.x) > width / 2 + 800 || Math.abs(p.y) > height / 2 + 800) {
-          p.x = (Math.random() - 0.5) * 40;
-          p.y = (Math.random() - 0.5) * 40;
-          p.travelSpeed = 1.5 + Math.random() * 4.5;
+        // Reset if they travel off-screen - respawn across the screen to remove center cluster
+        if (Math.abs(p.x) > width / 2 + 600 || Math.abs(p.y) > height / 2 + 600) {
+          p.x = (Math.random() - 0.5) * (width + 400);
+          p.y = (Math.random() - 0.5) * (height + 400);
+          p.travelSpeed = 1.2 + Math.random() * 2.8;
         }
 
         const fx = p.x + mouse.x * p.depth;
@@ -148,21 +128,13 @@ const BackgroundOverlay = () => {
 
         pos.setXYZ(i, fx, fy, 0);
 
-        // ✨ TWINKLE & COLOR
+        // ✨ TWINKLE
         const twinkle = Math.sin(time * p.blinkSpeed + p.blinkOffset);
         let intensity = p.pulse 
           ? p.brightness * (0.3 + twinkle * 0.7)
           : p.brightness * (0.5 + twinkle * 0.5);
 
-        // Brighten stars as they "get closer" (move further from center)
-        const travelFade = Math.min(dist / 300, 1.25);
-        const finalIntensity = intensity * travelFade;
-
-        col.setXYZ(i, 
-          baseColors[i * 3] * finalIntensity, 
-          baseColors[i * 3 + 1] * finalIntensity, 
-          baseColors[i * 3 + 2] * finalIntensity
-        );
+        col.setXYZ(i, intensity, intensity, intensity);
       }
 
       pos.needsUpdate = true;
