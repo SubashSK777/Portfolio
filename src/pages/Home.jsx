@@ -6,7 +6,7 @@ import PageTransition from '../components/PageTransition';
 const Home = () => {
   return (
     <PageTransition imageSrc="/avatar1.png" imageAlt="Subash Kumar Profile" scaleImage={true}>
-      <div style={{ paddingRight: '20%' }}>
+      <div className="home-text-container">
         <motion.h1
           className="display-title"
           initial={{ opacity: 0, y: 20 }}

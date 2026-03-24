@@ -63,11 +63,13 @@ const BackgroundOverlay = () => {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
+    const getStarSize = () => (window.innerWidth < 1024 ? 2.2 : 3.8);
+
     const material = new THREE.PointsMaterial({
-      size: 3.8, 
+      size: getStarSize(), 
       vertexColors: true,
       transparent: true,
-      opacity: 1.0,  // Full opacity for pure white
+      opacity: 1.0,
       sizeAttenuation: true,
     });
 
@@ -87,6 +89,7 @@ const BackgroundOverlay = () => {
 
     window.addEventListener('resize', () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
+      material.size = getStarSize();
     });
 
     // =========================
