@@ -334,6 +334,27 @@ p.body-text {
   transform: translateY(0);
 }
 
+.work-meta-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: #fff;
+  letter-spacing: 2px;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .work-meta-container {
+    flex-direction: column;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+    letter-spacing: 1px;
+  }
+}
+
 /* Page Transition Wrapper */
 .page-transition {
   width: 100%;

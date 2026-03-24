@@ -23,7 +23,7 @@ const Experience = () => {
                     <div className="minimal-card" style={{ borderBottom: 'none' }}>
                         <h2 className="section-title" style={{ fontSize: '1.5rem' }}>AI/ML Developer Intern</h2>
 
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', fontFamily: 'var(--font-display)', fontSize: '1.2rem', color: '#fff', letterSpacing: '2px' }}>
+                        <div className="work-meta-container">
                             <span>GENPLUS INNOVATIONS PRIVATE LIMITED</span>
                             <span>&lt; 1 YEAR EXPERIENCE</span>
                         </div>

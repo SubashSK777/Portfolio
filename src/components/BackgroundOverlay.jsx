@@ -27,9 +27,9 @@ const BackgroundOverlay = () => {
     const height = window.innerHeight;
 
     // =========================
-    // ⭐ STARS (DENSE + PURE WHITE)
+    // ✨ LUMINOUS SHADER-LIKE STARS
     // =========================
-    const COUNT = 2200; 
+    const COUNT = 2500; 
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
 
@@ -42,18 +42,17 @@ const BackgroundOverlay = () => {
       particles.push({
         x,
         y,
-        brightness: 0.5 + Math.random() * 0.5,
+        brightness: 0.4 + Math.random() * 0.6,
         blinkOffset: Math.random() * Math.PI * 2,
-        blinkSpeed: 0.01 + Math.random() * 0.02,
+        blinkSpeed: 0.008 + Math.random() * 0.015,
         depth: Math.random() * 0.5 + 0.5,
-        pulse: Math.random() > 0.8,
-        travelSpeed: 1.2 + Math.random() * 2.8,
+        pulse: Math.random() > 0.85,
+        travelSpeed: 1.0 + Math.random() * 2.5,
       });
 
       positions[i * 3] = x;
       positions[i * 3 + 1] = y;
 
-      // Pure white initial state
       colors[i * 3] = 1;
       colors[i * 3 + 1] = 1;
       colors[i * 3 + 2] = 1;
@@ -63,13 +62,32 @@ const BackgroundOverlay = () => {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-    const getStarSize = () => (window.innerWidth < 1024 ? 2.2 : 3.8);
+    // Create a circular glow texture for "luminous" effect
+    const createStarTexture = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 64;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 64, 64);
+      return new THREE.CanvasTexture(canvas);
+    };
+
+    const getStarSize = () => (window.innerWidth < 1024 ? 1.4 : 2.4);
 
     const material = new THREE.PointsMaterial({
       size: getStarSize(), 
+      map: createStarTexture(),
       vertexColors: true,
       transparent: true,
       opacity: 1.0,
+      blending: THREE.AdditiveBlending, // Makes them luminous
+      depthWrite: false,
       sizeAttenuation: true,
     });
 
@@ -83,8 +101,8 @@ const BackgroundOverlay = () => {
     let target = { x: 0, y: 0 };
 
     window.addEventListener('mousemove', (e) => {
-      target.x = (e.clientX - width / 2) * 0.03;
-      target.y = -(e.clientY - height / 2) * 0.03;
+      target.x = (e.clientX - width / 2) * 0.025;
+      target.y = -(e.clientY - height / 2) * 0.025;
     });
 
     window.addEventListener('resize', () => {
@@ -98,10 +116,10 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-      time += 0.01;
+      time += 0.008;
 
-      mouse.x += (target.x - mouse.x) * 0.06;
-      mouse.y += (target.y - mouse.y) * 0.06;
+      mouse.x += (target.x - mouse.x) * 0.05;
+      mouse.y += (target.y - mouse.y) * 0.05;
 
       const pos = geometry.attributes.position;
       const col = geometry.attributes.color;
@@ -109,18 +127,18 @@ const BackgroundOverlay = () => {
       for (let i = 0; i < COUNT; i++) {
         const p = particles[i];
 
-        // 🌌 Trajectory (Radial)
+        // Trajectory
         const dx = p.x;
         const dy = p.y;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
         
-        const speedFactor = (dist / 200) + 0.35;
+        const speedFactor = (dist / 220) + 0.3;
         p.x += (dx / dist) * p.travelSpeed * speedFactor;
         p.y += (dy / dist) * p.travelSpeed * speedFactor;
 
-        if (Math.abs(p.x) > width / 2 + 600 || Math.abs(p.y) > height / 2 + 600) {
-          p.x = (Math.random() - 0.5) * (width + 400);
-          p.y = (Math.random() - 0.5) * (height + 400);
+        if (Math.abs(p.x) > width / 2 + 700 || Math.abs(p.y) > height / 2 + 700) {
+          p.x = (Math.random() - 0.5) * (width + 300);
+          p.y = (Math.random() - 0.5) * (height + 300);
         }
 
         const fx = p.x + mouse.x * p.depth;
@@ -131,10 +149,9 @@ const BackgroundOverlay = () => {
         // ✨ TWINKLE
         const twinkle = Math.sin(time * p.blinkSpeed + p.blinkOffset);
         let intensity = p.pulse 
-          ? p.brightness * (0.3 + twinkle * 0.7)
-          : p.brightness * (0.5 + twinkle * 0.5);
+          ? p.brightness * (0.2 + twinkle * 0.8)
+          : p.brightness * (0.4 + twinkle * 0.6);
 
-        // Direct gray-scale intensity (r=g=b) for pure white/gray
         col.setXYZ(i, intensity, intensity, intensity);
       }
 
