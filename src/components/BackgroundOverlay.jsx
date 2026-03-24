@@ -78,7 +78,7 @@ const BackgroundOverlay = () => {
       return new THREE.CanvasTexture(canvas);
     };
 
-    const getStarSize = () => (window.innerWidth < 1024 ? 2.5 : 4.0);
+    const getStarSize = () => (window.innerWidth < 1024 ? 3.5 : 5.5);
 
     const material = new THREE.PointsMaterial({
       size: getStarSize(), 
