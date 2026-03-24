@@ -27,11 +27,12 @@ const BackgroundOverlay = () => {
     const height = window.innerHeight;
 
     // =========================
-    // ⭐ STARS (DENSE + UNIFORM)
+    // ⭐ STARS (DENSE + COLORFUL)
     // =========================
     const COUNT = 2200; 
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
+    const baseColors = new Float32Array(COUNT * 3); // Store initial colors
 
     const particles = [];
 
@@ -47,16 +48,30 @@ const BackgroundOverlay = () => {
         blinkSpeed: 0.01 + Math.random() * 0.02,
         depth: Math.random() * 0.5 + 0.5,
         pulse: Math.random() > 0.8,
-        travelSpeed: 1.2 + Math.random() * 2.8, // Slightly slower speed
+        travelSpeed: 1.2 + Math.random() * 2.8,
       });
 
       positions[i * 3] = x;
       positions[i * 3 + 1] = y;
 
-      // Pure white stars
-      colors[i * 3] = 1;
-      colors[i * 3 + 1] = 1;
-      colors[i * 3 + 2] = 1;
+      // Color distribution: 50% White, 25% Luminous Red, 25% Luminous Blue
+      let r = 1, g = 1, b = 1;
+      const themeRand = Math.random();
+      if (themeRand > 0.75) {
+        // Luminous Blue
+        r = 0.2; g = 0.6; b = 1;
+      } else if (themeRand > 0.5) {
+        // Luminous Red
+        r = 1; g = 0.3; b = 0.3;
+      }
+
+      baseColors[i * 3] = r;
+      baseColors[i * 3 + 1] = g;
+      baseColors[i * 3 + 2] = b;
+
+      colors[i * 3] = r;
+      colors[i * 3 + 1] = g;
+      colors[i * 3 + 2] = b;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -64,7 +79,7 @@ const BackgroundOverlay = () => {
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const material = new THREE.PointsMaterial({
-      size: 3.0, 
+      size: 3.8, // Slightly larger as requested
       vertexColors: true,
       transparent: true,
       opacity: 0.85,
@@ -95,7 +110,7 @@ const BackgroundOverlay = () => {
     let time = 0;
 
     const animate = () => {
-      time += 0.01; // Slightly slower twinkling
+      time += 0.01;
 
       mouse.x += (target.x - mouse.x) * 0.06;
       mouse.y += (target.y - mouse.y) * 0.06;
@@ -106,21 +121,18 @@ const BackgroundOverlay = () => {
       for (let i = 0; i < COUNT; i++) {
         const p = particles[i];
 
-        // 🌌 Radial trajectory (moving away from center)
+        // 🌌 Trajectory (Radial)
         const dx = p.x;
         const dy = p.y;
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
         
-        // Slightly reduced speed factor for smoother travel
         const speedFactor = (dist / 200) + 0.35;
         p.x += (dx / dist) * p.travelSpeed * speedFactor;
         p.y += (dy / dist) * p.travelSpeed * speedFactor;
 
-        // Reset if they travel off-screen - respawn across the screen to remove center cluster
         if (Math.abs(p.x) > width / 2 + 600 || Math.abs(p.y) > height / 2 + 600) {
           p.x = (Math.random() - 0.5) * (width + 400);
           p.y = (Math.random() - 0.5) * (height + 400);
-          p.travelSpeed = 1.2 + Math.random() * 2.8;
         }
 
         const fx = p.x + mouse.x * p.depth;
@@ -134,7 +146,11 @@ const BackgroundOverlay = () => {
           ? p.brightness * (0.3 + twinkle * 0.7)
           : p.brightness * (0.5 + twinkle * 0.5);
 
-        col.setXYZ(i, intensity, intensity, intensity);
+        col.setXYZ(i, 
+          baseColors[i * 3] * intensity, 
+          baseColors[i * 3 + 1] * intensity, 
+          baseColors[i * 3 + 2] * intensity
+        );
       }
 
       pos.needsUpdate = true;
