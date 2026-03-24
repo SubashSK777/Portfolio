@@ -30,22 +30,18 @@ const Contact = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
                             <a href="mailto:subashsk11831@gmail.com" className="minimal-card contact-item">
-                                <div style={{ padding: '1.2rem', border: '1.5px solid #fff', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
-                                    <Mail size={24} color="#ffffff" />
-                                </div>
-                                <div style={{ overflow: 'hidden', width: '100%' }}>
-                                    <strong style={{ display: 'block', color: '#fff', fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '4px', marginBottom: '0.8rem' }}>E-MAIL PROTOCOL</strong>
-                                    <span className="body-text" style={{ fontSize: '1.3rem', color: '#fff', wordBreak: 'break-all' }}>subashsk11831@gmail.com</span>
+                                <Mail size={28} color="#ffffff" style={{ flexShrink: 0 }} />
+                                <div style={{ overflow: 'hidden' }}>
+                                    <strong style={{ display: 'block', color: '#fff', fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '4px', marginBottom: '0.6rem' }}>E-MAIL PROTOCOL</strong>
+                                    <span className="body-text" style={{ fontSize: '1.4rem', color: '#fff', wordBreak: 'break-all' }}>subashsk11831@gmail.com</span>
                                 </div>
                             </a>
 
                             <a href="https://wa.me/918148826206" target="_blank" rel="noreferrer" className="minimal-card contact-item" style={{ borderBottom: 'none' }}>
-                                <div style={{ padding: '1.2rem', border: '1.5px solid #fff', borderRadius: '50%', display: 'flex', flexShrink: 0 }}>
-                                    <MessageSquare size={24} color="#ffffff" />
-                                </div>
-                                <div style={{ overflow: 'hidden', width: '100%' }}>
-                                    <strong style={{ display: 'block', color: '#fff', fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '4px', marginBottom: '0.8rem' }}>WHATSAPP</strong>
-                                    <span className="body-text" style={{ fontSize: '1.3rem', color: '#fff' }}>(+91) 8148826206</span>
+                                <MessageSquare size={28} color="#ffffff" style={{ flexShrink: 0 }} />
+                                <div style={{ overflow: 'hidden' }}>
+                                    <strong style={{ display: 'block', color: '#fff', fontFamily: 'var(--font-display)', fontSize: '0.9rem', letterSpacing: '4px', marginBottom: '0.6rem' }}>WHATSAPP</strong>
+                                    <span className="body-text" style={{ fontSize: '1.4rem', color: '#fff' }}>(+91) 8148826206</span>
                                 </div>
                             </a>
 

@@ -358,6 +358,26 @@ p.body-text {
   }
 }
 
+.contact-item {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2.5rem 0 !important;
+  text-decoration: none;
+  transition: padding-left 0.4s ease;
+}
+
+@media (max-width: 1024px) {
+  .contact-item {
+    gap: 1.2rem !important;
+    padding: 1.5rem 0 !important;
+  }
+  
+  .contact-item .body-text {
+    font-size: 1.1rem !important;
+  }
+}
+
 /* Page Transition Wrapper */
 .page-transition {
   width: 100%;
